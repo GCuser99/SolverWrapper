@@ -1,0 +1,46 @@
+[ Description ("") ]
+[ FormDesignerId ("9D3B2FFD-0A92-4CE5-BC0E-5D080F151804") ]
+[ PredeclaredId ]
+Private Class dlgShowTrial
+
+    Private showTrialAction As SlvShowTrial
+    Private stopRestorePrevious As Boolean
+    
+    Public Function GetShowTrialAction() As SlvShowTrial
+        GetShowTrialAction = showTrialAction
+    End Function
+
+    Public Function GetStopRestorePrevious() As Boolean
+        GetStopRestorePrevious = stopRestorePrevious
+    End Function
+
+	Private Sub New()
+        Me.Caption = "Show Trial Solution"
+        Me.cmdContinue.Caption = "Continue"
+        Me.cmdStopAndRestore.Caption = "Stop and Restore"
+        Me.cmdStopAndKeep.Caption = "Stop and Keep"
+	End Sub
+	
+	Private Sub cmdContinue_Click()
+        showTrialAction = SlvShowTrial.slvContinue
+        stopRestorePrevious = False
+        Me.Hide
+	End Sub
+	
+	Private Sub cmdStopAndKeep_Click()
+        showTrialAction = SlvShowTrial.slvStop
+        stopRestorePrevious = False
+        Me.Hide
+	End Sub
+	
+	Private Sub cmdStopAndRestore_Click()
+        showTrialAction = SlvShowTrial.slvStop
+        stopRestorePrevious = True
+        Me.Hide
+	End Sub
+	
+	Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+        If UnloadMode = 0 Then cmdContinue_Click()
+	End Sub
+
+End Class

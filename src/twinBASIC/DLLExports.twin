@@ -1,0 +1,13 @@
+Public Module DLLExports
+'these are for use if calling the DLL without registration
+'use following format to declare and use in VBA:
+'
+'Public Declare PtrSafe Function New_SolvProblem Lib "[path to dll folder]\SolverWrapper_win64.dll" () As Object
+'Dim driver As Object  
+'Set driver = New_SolvProblem()
+
+    [ DllExport () ]
+    Public Function New_SolvProblem() As Object
+         Set New_SolvProblem = New SolvProblem
+    End Function
+End Module
