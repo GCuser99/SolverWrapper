@@ -18,7 +18,7 @@
 #define LicenseFilePath "..\..\..\GitHub\SolverWrapper\LICENSE.txt"
 #define TestFolderPath "..\test_documents"
 #define LogoFilePath "..\..\logo\logo_setup.bmp"
-#define RequirementsFilePath ".\readme.rtf"
+#define RequirementsFilePath ".\notes.rtf"
 #define SetupOutputFolderPath "..\..\..\GitHub\SolverWrapper\dist" 
 #define AppVersion GetVersionNumbersString(DLL64FilePath)
 // The following definition points to the path of 
