@@ -20,7 +20,7 @@ This repo offers two compatible solutions for automating Solver via VBA. One con
 
 Be aware that one disadvantage of marshalling communication directly with the Solver DLL (as opposed to the Solver Add-in) is that Solver Report creation is lost. This is because those reports were created by the SOLVER.XLAM Add-in, not the DLL.
 
-## Examples
+## Example
 
 ```vba
 Sub Solve_Engineering_Design()
