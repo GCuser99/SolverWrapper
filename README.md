@@ -18,7 +18,7 @@ This repo offers two compatible solutions for automating Solver via VBA. One con
 - Other miscellaneous enhancements
 - Help documentation is available in the [SolverWrapper Wiki](https://github.com/GCuser99/SolverWrapper/wiki)
 
-Be aware that one disadvantage of marshalling communication directly with the Solver DLL (as opposed to the Solver Add-in) is that Solver Report creation is lost. This is because those reports were created by the SOLVER.XLAM Add-in, not the DLL.
+Be aware that one disadvantage of marshalling communication directly with the Solver DLL (as opposed to the Solver Add-in) is that Solver Report creation is lost. This is because those reports were created by the Add-in, not the DLL.
 
 ## Example
 
