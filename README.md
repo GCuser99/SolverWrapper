@@ -15,6 +15,7 @@ This repo offers two solutions for automating Solver via VBA. One consists of So
 - Capability to save intermediate trial solutions, as opposed to one BEST solution (often there are more than one!)
 - Enhanced Solver callback protocol
 - An alternative event-based means of monitoring solution progress versus the callback
+- Other miscellaneous enhancements
 - Help documentation is available in the [SolverWrapper Wiki](https://github.com/GCuser99/SolverWrapper/wiki)
 
 Be aware that one disadvantage of marshalling communication direcly with the Solver DLL (as opposed to the Solver Add-in) is that Solver Report creation is lost. This is because those reports were created by the SOLVER.XLAM Add-in, not the DLL.
@@ -44,7 +45,7 @@ Sub Solve_Engineering_Design()
     
     Problem.SolveIt
     
-    'leave to trace of SolverWrapper (hidden Solver names) behind
+    'leave no trace of SolverWrapper (hidden Solver names) behind
     Problem.CleanUp
     
     If Problem.Solver.SaveAllTrialSolutions Then
