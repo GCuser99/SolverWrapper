@@ -54,7 +54,7 @@ Sub Solve_Engineering_Design()
     'leave no trace of SolverWrapper (hidden Solver names) behind
     Problem.CleanUp
 
-    'save to the worksheet all valid solutions
+    'save all valid solutions to the worksheet 
     If Problem.Solver.SaveAllTrialSolutions Then
         ws.Range("o1:az10000").ClearContents
         Problem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
