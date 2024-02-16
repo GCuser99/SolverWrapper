@@ -5,7 +5,7 @@ MS Excel VBA Object Model and [twinBASIC](https://twinbasic.com/preview.html) DL
 
 The Solver Add-in (from [FrontLine Systems](https://www.solver.com/)) that is installed with Microsoft Excel is a powerful tool for linear and non-linear spreadsheet model optimization. However, automating the Solver via VBA can be awkward due to Solver's non-OOP "functional" design, and the requirement that the Add-in must be installed (activated) before a VBA reference can be made to it (see Peltier Tech for [details](https://peltiertech.com/Excel/SolverVBA.html)).
 
-This repo offers two compatible solutions for automating Solver via VBA. One consists of SolverWrapper object model in VBA code, and the other is by referencing an ActiveX DLL from VBA projects. The DLL, compiled in [twinBASIC](https://twinbasic.com/preview.html), can either be [installed/registered](https://github.com/GCuser99/SolverWrapper/tree/main/dist) and referenced within your Excel VBA project, or be called without registration if intellisense and Object Browser are not important. Both of these solutions control Solver by communicating directly with the SOLVER32.DLL, thus in effect circumventing the SOLVER.XLAM add-in, and eliminating having to check if the SOLVER.XLAM has been loaded into Excel. 
+This repo offers two compatible solutions for automating Solver via VBA. One consists of SolverWrapper object model in VBA code, and the other is by referencing an ActiveX DLL from VBA projects. The DLL, compiled in [twinBASIC](https://twinbasic.com/preview.html), can either be [installed/registered](https://github.com/GCuser99/SolverWrapper/tree/main/dist) and referenced within your Excel VBA project, or be called without registration if use of Intellisense and the Object Browser are not important. These solutions control Solver by communicating directly with the SOLVER32.DLL, thus in effect circumventing the SOLVER.XLAM add-in, and eliminating having to check if the SOLVER.XLAM has been loaded into Excel. 
 
 ## Features
 
@@ -18,7 +18,7 @@ This repo offers two compatible solutions for automating Solver via VBA. One con
 - Other miscellaneous enhancements
 - Help documentation is available in the [SolverWrapper Wiki](https://github.com/GCuser99/SolverWrapper/wiki)
 
-Be aware that one disadvantage of marshalling communication direcly with the Solver DLL (as opposed to the Solver Add-in) is that Solver Report creation is lost. This is because those reports were created by the SOLVER.XLAM Add-in, not the DLL.
+Be aware that one disadvantage of marshalling communication directly with the Solver DLL (as opposed to the Solver Add-in) is that Solver Report creation is lost. This is because those reports were created by the SOLVER.XLAM Add-in, not the DLL.
 
 ## Examples
 
@@ -62,7 +62,7 @@ Sub Solve_Engineering_Design()
 End Sub
 ```
 
-Credits
+## Acknowledgements
 
 [RubberDuck](https://rubberduckvba.com/) by Mathieu Guindon
 
