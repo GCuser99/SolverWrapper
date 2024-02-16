@@ -22,6 +22,8 @@ Be aware that one disadvantage of marshalling communication directly with the So
 
 ## Example
 
+The following example automates solving the problem in SOLVSAMP.XLS on the "Engineering Design" worksheet which is distributed with MS Office Excel and can usually be found in "C:\Program Files\Microsoft Office\root\Office16\SAMPLES".
+
 ```vba
 Sub Solve_Engineering_Design()
     Dim Problem As New SolvProblem
