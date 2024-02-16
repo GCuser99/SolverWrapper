@@ -3,6 +3,8 @@ MS Excel VBA Object Model and [twinBASIC](https://twinbasic.com/preview.html) DL
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Introduction
+
 The Solver Add-in (from [FrontLine Systems](https://www.solver.com/)) that is installed with Microsoft Excel is a powerful tool for linear and non-linear spreadsheet model optimization. However, automating the Solver via VBA can be awkward due to Solver's non-OOP "functional" design, and the requirement that the Add-in must be installed (activated) before a VBA reference can be made to it (see Peltier Tech for [details](https://peltiertech.com/Excel/SolverVBA.html)).
 
 This repo offers two compatible solutions for automating Solver via VBA. One consists of SolverWrapper object model in VBA code, and the other is an ActiveX DLL referenced from within your VBA projects. The DLL, compiled in [twinBASIC](https://twinbasic.com/preview.html), can either be [installed/registered](https://github.com/GCuser99/SolverWrapper/tree/main/dist), or be called without registration if use of Intellisense and the Object Browser are not important. These solutions control Solver by communicating directly with the SOLVER32.DLL, thus in effect circumventing the SOLVER.XLAM add-in, and eliminating having to check if the SOLVER.XLAM has been loaded into Excel. 
@@ -63,6 +65,11 @@ Sub Solve_Engineering_Design()
     End If
 End Sub
 ```
+
+## Requirements:
+
+- 64-bit MS Windows
+- MS Office 2010 or later, 32/64-bit
 
 ## Acknowledgements
 
