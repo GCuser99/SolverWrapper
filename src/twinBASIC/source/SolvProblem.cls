@@ -242,20 +242,6 @@ Attribute GetSolutions.VB_Description = "Returns a Variant array containing all 
     If keepOnlyValid Then RemoveArrayInvalids a
     If removeDuplicates Then RemoveArrayDups a
     a = TransposeArray(a)
-    GoTo skip
-    'in order to sort...
-    Select Case NameToLong("solver_typ", oSolverSheet)
-    Case 1 'max
-        'sort from largest to smallest
-    Case 2 'min
-        'sort from smallest to largest
-    Case 3 'val
-        Debug.Print NameToLong("solver_val", oSolverSheet)
-        'this one we need to know value and then take absolute value of difference
-        'and then sort from smallest to largest
-        'Stop
-    End Select
-skip:
     If sortBestToWorst Then a = FlipArray(a)
     GetSolutions = a
 End Function
