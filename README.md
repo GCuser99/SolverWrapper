@@ -65,7 +65,7 @@ Sub Solve_Engineering_Design()
     End If
 End Sub
 ```
-
+<img src="https://github.com/GCuser99/SolverWrapper/blob/main/dev/images/engineering%20design.png" alt="EngineeringDesign" width=75% height=75%>
 ## Requirements:
 
 - 64-bit MS Windows
