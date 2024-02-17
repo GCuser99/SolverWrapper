@@ -12,7 +12,7 @@ This repo offers two compatible solutions for automating Solver via VBA. One con
 ## Features
 
 - Uses an OOP design, making it easier to understand and code with
-- Unique design that communicates directly with SOLVER32.DLL
+- Unique implementation that communicates directly with SOLVER32.DLL
 - Can be implemented as a pure VBA code library or [twinBASIC](https://twinbasic.com/preview.html) ActiveX DLL object model
 - Capability to save intermediate trial solutions, as opposed to one BEST solution (often there are more than one!)
 - Enhanced Solver callback protocol
