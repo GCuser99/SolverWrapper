@@ -52,7 +52,7 @@ Sub Solve_Engineering_Design()
     
     Problem.Solver.SaveAllTrialSolutions = True
 
-    'solve the problem
+    'solve the optimization problem
     Problem.SolveIt
     
     'leave no trace of SolverWrapper (hidden Solver names) behind
