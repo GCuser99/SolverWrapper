@@ -2,7 +2,7 @@ These examples automate solving each of the optimization problems in SOLVSAMP.XL
 ```vba
 Application.LibraryPath & "\..\SAMPLES\SOLVSAMP.XLS"
 ```
-... which on some systems can be found here:
+... which on many systems resolves to:
 ```
 C:\Program Files\Microsoft Office\root\Office16\SAMPLES\SOLVSAMP.XLS
 ```
