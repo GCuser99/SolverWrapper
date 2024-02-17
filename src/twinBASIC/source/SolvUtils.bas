@@ -1,7 +1,7 @@
 Attribute VB_Name = "SolvUtils"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.1
+' SolverWrapper v0.2
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -640,7 +640,7 @@ End Sub
 ' ==========================================================================
 
 Private Function CompareValues(ByVal lhs As Double, ByVal rel As SlvRelation, ByVal rhs As Double, ByVal prec As Double) As Boolean
-    'reverse engineered comparison tests given input precision
+    'reverse engineered comparison tests given Solver input precision
     'used to assess whether a contraint is satisfied
     Dim epsilon As Double
     epsilon = 1E-20
@@ -851,10 +851,4 @@ EH:
     Is1DVariant = True
 End Function
 
-Private Function IsVBATrusted() As Boolean
-    IsVBATrusted = False
-    'Note: this may cause "Run-time Error 1004" if Tools->Options->Error Trapping is set to "Break on All Errors"
-    On Error Resume Next
-    IsVBATrusted = (Application.VBE.VBProjects.Count) > 0
-    On Error GoTo 0
-End Function
+

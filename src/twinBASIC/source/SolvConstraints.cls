@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set/manage Solver constraints."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.1
+' SolverWrapper v0.2
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '

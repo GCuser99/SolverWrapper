@@ -15,7 +15,6 @@ Attribute VB_Name = "test_Maximizing_Income"
 
 'this is a linear problem, hence slvSimplex_LP is best method
 'but slvGRG_Nonlinear is almost as fast and accurate
-'evolution needs decvars to be bounded
 Sub Solve_Maximizing_Income()
     Dim Problem As New SolvProblem
     Dim ws As Worksheet

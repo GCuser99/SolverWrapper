@@ -53,7 +53,7 @@ Sub Solve_Portfolio_of_Securities_with_Events()
     Problem.SolveIt
     
     If Problem.Solver.SaveAllTrialSolutions Then
-        ws.Range("q1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("q1")
+        ws.Range("o2:az10000").ClearContents
+        Problem.SaveSolutionsToRange ws.Range("o2")
     End If
 End Sub

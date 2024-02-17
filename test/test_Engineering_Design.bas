@@ -36,7 +36,7 @@ Sub Solve_Engineering_Design()
     
     Problem.SolveIt
     
-    'leave to trace of SolverWrapper (hidden Solver names) behind
+    'leave no trace behind of SolverWrapper (hidden Solver names)
     Problem.CleanUp
     
     If Problem.Solver.SaveAllTrialSolutions Then

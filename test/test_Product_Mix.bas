@@ -14,7 +14,6 @@ Attribute VB_Name = "test_Product_Mix"
 'and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
 
 'slvGRG_Nonlinear finds the optimum fast
-'evoloutionary gets close but takes a long time
 Sub Solve_Product_Mix_Non_Linear()
     Dim Problem As New SolvProblem
     Dim ws As Worksheet

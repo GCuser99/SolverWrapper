@@ -12,7 +12,7 @@ Attribute VB_Description = "The main class to define the Solver problem, includi
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.1
+' SolverWrapper v0.2
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -234,23 +234,23 @@ Attribute Reset.VB_Description = "Resets the problem objective and decision vari
 End Sub
 
 '%Description("Returns a Variant array containing all intermediate (trial) and final solutions, as well as a flag indicating whether each solution passed all problem contraints.")
-Public Function GetSolutions(Optional ByVal sortBestToWorst As Boolean = True, Optional ByVal removeDuplicates As Boolean = True, Optional ByVal keepOnlyValid As Boolean = True) As Variant()
-Attribute GetSolutions.VB_Description = "Returns a Variant array containing all intermediate (trial) and final solutions, as well as a flag indicating whether each solution passed all problem contraints."
-    Dim a() As Variant, i As Long, j As Long, k As Long
+Public Function SaveSolutionsToArray(Optional ByVal sortBestToWorst As Boolean = True, Optional ByVal removeDuplicates As Boolean = True, Optional ByVal keepOnlyValid As Boolean = True) As Variant()
+Attribute SaveSolutionsToArray.VB_Description = "Returns a Variant array containing all intermediate (trial) and final solutions, as well as a flag indicating whether each solution passed all problem contraints."
+    Dim solutions() As Variant, i As Long, j As Long, k As Long
     If Not oSolver.SaveAllTrialSolutions Then Err.Raise vbObjectError + 4001, , "Error in GetSolutions method  - Must first set SaveAllTrialSolutions of Solver Class to True"
-    a = oSolvDLL.GetSolutions
-    If keepOnlyValid Then RemoveArrayInvalids a
-    If removeDuplicates Then RemoveArrayDups a
-    a = TransposeArray(a)
-    If sortBestToWorst Then a = FlipArray(a)
-    GetSolutions = a
+    solutions = oSolvDLL.GetSolutions
+    If keepOnlyValid Then RemoveArrayInvalids solutions
+    If removeDuplicates Then RemoveArrayDups solutions
+    solutions = TransposeArray(solutions)
+    If sortBestToWorst Then solutions = FlipArray(solutions)
+    SaveSolutionsToArray = solutions
 End Function
 
 '%Description("Saves all intermediate and final solutions to the given Worksheet Range.")
 Public Sub SaveSolutionsToRange(ByRef saveRange As Range, Optional ByVal sortBestToWorst As Boolean = True, Optional ByVal removeDuplicates As Boolean = True, Optional ByVal keepOnlyValid As Boolean = True)
 Attribute SaveSolutionsToRange.VB_Description = "Saves all intermediate and final solutions to the given Worksheet Range."
     If Not oSolver.SaveAllTrialSolutions Then Err.Raise vbObjectError + 4001, , "Error in SaveSolutionsToRange method  - Must first set SaveAllTrialSolutions of Solver Class to True"
-    VariantToRange GetSolutions(sortBestToWorst, removeDuplicates, keepOnlyValid), saveRange
+    VariantToRange SaveSolutionsToArray(sortBestToWorst, removeDuplicates, keepOnlyValid), saveRange
 End Sub
 
 '%Description("Returns a reference to the current problem Worksheet")

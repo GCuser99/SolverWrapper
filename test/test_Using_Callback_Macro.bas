@@ -46,8 +46,8 @@ Sub Solve_Portfolio_of_Securities_with_Events()
     Problem.SolveIt
     
     If Problem.Solver.SaveAllTrialSolutions Then
-        ws.Range("q1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("q1")
+        ws.Range("o2:az10000").ClearContents
+        Problem.SaveSolutionsToRange ws.Range("o2")
     End If
 End Sub
 
@@ -73,7 +73,7 @@ Function ShowTrial(ByVal reason As Long, ByVal trialNum As Long, oProblem As Sol
         Case SlvCallbackReason.slvShowIterations 'new iteration has completed or user hit esc key
             stopSolver = False
         Case SlvCallbackReason.slvMaxTimeLimit
-            stopSolver = True 'if True then solver is stopped
+            stopSolver = True 'if set to True then solver is stopped!
         Case SlvCallbackReason.slvMaxIterationsLimit
             stopSolver = False
         Case SlvCallbackReason.slvMaxSubproblemsLimit

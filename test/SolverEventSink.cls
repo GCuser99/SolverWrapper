@@ -35,7 +35,7 @@ Private Sub oProblem_ShowTrial(ByVal reason As Long, ByVal trialNum As Long, sto
         Case SlvCallbackReason.slvShowIterations 'new iteration has completed or user hit esc key
             stopSolver = False
         Case SlvCallbackReason.slvMaxTimeLimit
-            stopSolver = True 'if True then solver is stopped
+            stopSolver = True 'if set to True then solver is stopped!
         Case SlvCallbackReason.slvMaxIterationsLimit
             stopSolver = False
         Case SlvCallbackReason.slvMaxSubproblemsLimit
@@ -46,12 +46,10 @@ Private Sub oProblem_ShowTrial(ByVal reason As Long, ByVal trialNum As Long, sto
 End Sub
 
 Private Sub oProblem_BeforeSolve(stopSolver As Boolean)
-    'seems like we don't need solverSheet, as we can get it via oProblem.SolverSheet
     Debug.Print "Solver started on Worksheet: " & oProblem.SolverSheet.Name
 End Sub
 
 Private Sub oProblem_AfterSolve(ByVal returnMsgCode As Long, ByVal trialNum As Long)
-    'seems like we don't need solverSheet, as we can get it via oProblem.SolverSheet
     Debug.Print "Solver completed with iterations= " & trialNum
     Debug.Print "Solver return code= " & oProblem.SolverCodeToString(returnMsgCode)
 End Sub

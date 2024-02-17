@@ -14,7 +14,6 @@ Attribute VB_Name = "test_Quick_Tour"
 'and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
 
 'slvGRG_Nonlinear converges and is fast
-'slvEvolutionary gets close but very long time
 Sub Solve_Quick_Tour_Unconstrained()
     Dim Problem As New SolvProblem
     Dim ws As Worksheet
