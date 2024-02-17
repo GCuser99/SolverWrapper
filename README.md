@@ -63,7 +63,7 @@ Sub Solve_Portfolio_of_Securities()
     'save all trial solutions that passed the constraints to the worksheet
     If Problem.Solver.SaveAllTrialSolutions Then
         ws.Range("q1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("q1"), keepOnlyValid:=True
+        Problem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
     End If
 End Sub
 ```
