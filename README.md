@@ -16,7 +16,7 @@ This repo offers two compatible solutions for automating Solver via VBA. One con
 - Can be implemented as a pure VBA code library or [twinBASIC](https://twinbasic.com/preview.html) ActiveX DLL object model
 - Capability to save intermediate trial solutions, as opposed to one BEST solution (often there are more than one!)
 - Enhanced Solver callback protocol
-- An alternative event-based means of monitoring solution progress versus the callback
+- An alternative event-based means of monitoring solution progress versus using the callback
 - Other miscellaneous enhancements
 - Help documentation is available in the [SolverWrapper Wiki](https://github.com/GCuser99/SolverWrapper/wiki)
 
