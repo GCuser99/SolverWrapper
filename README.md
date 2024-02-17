@@ -67,7 +67,7 @@ Sub Solve_Portfolio_of_Securities()
     End If
 End Sub
 ```
-<img src="https://github.com/GCuser99/SolverWrapper/blob/main/dev/images/portfolio_of_securities.png" alt="EngineeringDesign" width=75% height=75%>
+<img src="https://github.com/GCuser99/SolverWrapper/blob/main/dev/images/portfolio_of_securities.png" alt="EngineeringDesign" width=85% height=85%>
 
 ## Requirements:
 
