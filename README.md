@@ -24,28 +24,33 @@ Be aware that one disadvantage of marshalling communication directly with the So
 
 ## Example
 
-The following example automates solving the problem in SOLVSAMP.XLS on the "Engineering Design" worksheet which is distributed with MS Office Excel and can usually be found in "C:\Program Files\Microsoft Office\root\Office16\SAMPLES".
+The following example automates solving the problem in SOLVSAMP.XLS on the "Portfolio of Securities" worksheet which is distributed with MS Office Excel and can usually be found in "C:\Program Files\Microsoft Office\root\Office16\SAMPLES".
 
 ```vba
-Sub Solve_Engineering_Design()
+Sub Solve_Portfolio_of_Securities()
     Dim Problem As New SolvProblem
     Dim ws As Worksheet
     
-    Set ws = ThisWorkbook.Worksheets("Engineering Design")
-
+    Set ws = ThisWorkbook.Worksheets("Portfolio of Securities")
+    
     'initialize the problem by passing a reference to the worksheet of interest
     Problem.Initialize ws
     
     'define the objective cell to be optimized
-    Problem.Objective.Define "G15", slvTargetValue, 0.09
-
+    Problem.Objective.Define "E18", slvMaximize
+    
     'define and initialize the decision cell(s)
-    Problem.DecisionVars.Add "G12"
-    Problem.DecisionVars.Initialize 100
-
+    Problem.DecisionVars.Add "E10:E14"
+    Problem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
+    
+    'add some constraints
+    Problem.Constraints.AddBounded "E10:E14", 0#, 1#
+    Problem.Constraints.Add "E16", slvEqual, 1#
+    Problem.Constraints.Add "G18", slvLessThanEqual, 0.071
+    
     'set the solver engine to use
     Problem.Solver.Method = slvGRG_Nonlinear
-
+    
     'set some solver options
     Problem.Solver.Options.AssumeNonNeg = True
     Problem.Solver.Options.RandomSeed = 7
@@ -55,17 +60,14 @@ Sub Solve_Engineering_Design()
     'solve the optimization problem
     Problem.SolveIt
     
-    'leave no trace of SolverWrapper (hidden Solver names) behind
-    Problem.CleanUp
-
-    'save all valid solutions to the worksheet 
+    'save all valid solutions to the worksheet
     If Problem.Solver.SaveAllTrialSolutions Then
-        ws.Range("o1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
+        ws.Range("q1:az10000").ClearContents
+        Problem.SaveSolutionsToRange ws.Range("q1"), keepOnlyValid:=True
     End If
 End Sub
 ```
-<img src="https://github.com/GCuser99/SolverWrapper/blob/main/dev/images/engineering%20design.png" alt="EngineeringDesign" width=75% height=75%>
+<img src="https://github.com/GCuser99/SolverWrapper/blob/main/dev/images/portfolio_of_securities.png" alt="EngineeringDesign" width=75% height=75%>
 
 ## Requirements:
 
