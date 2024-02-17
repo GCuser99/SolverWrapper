@@ -16,7 +16,7 @@
 #define DLL64FilePath "..\Build\SolverWrapper_win64.dll"
 #define DLL32FilePath "..\Build\SolverWrapper_win32.dll"
 #define LicenseFilePath "..\..\..\GitHub\SolverWrapper\LICENSE.txt"
-#define TestFolderPath "..\test_documents"
+#define TestFolderPath "..\..\..\GitHub\SolverWrapper\test"
 #define LogoFilePath "..\..\logo\logo_setup.bmp"
 #define RequirementsFilePath ".\notes.rtf"
 #define SetupOutputFolderPath "..\..\..\GitHub\SolverWrapper\dist" 
@@ -83,8 +83,17 @@ ClickFinish=If left checked, the optional task(s) below will be performed. Click
 Source: {#DLL64FilePath}; DestDir: {app};  Flags: ignoreversion regserver ; Check: InstallX64; Components: pkg_core;
 Source: {#DLL32FilePath}; DestDir: {app};  Flags: ignoreversion regserver ; Check: InstallX32; Components: pkg_core;
 ; Source: {#INIFilePath}; DestDir: {app};  Flags: ignoreversion uninsneveruninstall onlyifdoesntexist; Check: IsWin64; Components: pkg_core;
-Source: {#TestFolderPath}\SolverWrapper tests.xlsm; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
-Source: {#TestFolderPath}\readme.txt; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs;
+Source: {#TestFolderPath}\SolverEventSink.cls; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs;
+Source: {#TestFolderPath}\test_Engineering_Design.bas; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
+Source: {#TestFolderPath}\test_Maximizing_Income.bas; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
+Source: {#TestFolderPath}\test_Portfolio_of_Securities.bas; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
+Source: {#TestFolderPath}\test_Product_Mix.bas; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
+Source: {#TestFolderPath}\test_Quick_Tour.bas; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
+Source: {#TestFolderPath}\test_Shipping_Routes.bas; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
+Source: {#TestFolderPath}\test_Staff_Scheduling.bas; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
+Source: {#TestFolderPath}\test_Using_Callback_Macro.bas; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
+Source: {#TestFolderPath}\test_Using_ShowTrial_Events.bas; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs; 
+Source: {#TestFolderPath}\readme.md; DestDir: {app}\examples; Flags: ignoreversion; Components: pkg_docs;
 Source: {#LicenseFilePath} ; DestDir: "{app}"; Flags: ignoreversion ; Components: pkg_core;
 Source: {#RequirementsFilePath} ; DestDir: "{app}"; Flags: ignoreversion ; Components: pkg_core;
 ; Source: "Readme.txt"; DestDir: "{app}"; Flags: isreadme
