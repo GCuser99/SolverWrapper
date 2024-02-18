@@ -1,5 +1,5 @@
 # SolverWrapper
-MS Excel VBA/[twinBASIC](https://twinbasic.com/preview.html) DLL Object Model for automating Solver
+VBA/[twinBASIC](https://twinbasic.com/preview.html) Object Models for automating MS Excel's Solver
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
