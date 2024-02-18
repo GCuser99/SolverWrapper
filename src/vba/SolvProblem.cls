@@ -12,7 +12,7 @@ Attribute VB_Description = "The main class to define the Solver problem, includi
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.2
+' SolverWrapper v0.3
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -293,7 +293,7 @@ Private Function IsInitialized() As Boolean
     If oSolverSheet Is Nothing Then IsInitialized = False Else IsInitialized = True
 End Function
 
-Public Sub InitializeSolverNames()
+Private Sub InitializeSolverNames()
     Set solverNames = New Collection
     With solverNames
         'check to see if solver_old is created with multi-start?
@@ -315,7 +315,7 @@ Public Sub InitializeSolverNames()
         .Add "solver_drv" 'derivatives (1 - forward, 2 - central)
         .Add "solver_est" 'Estimates (tangent-1, 2-quadratic)
         .Add "solver_itr" 'solving limit iterations MAXLONG
-        '.Add "solver_lin" 'assume linear problem? (1-yes, 2-no)
+        '.Add "solver_lin" 'assume linear problem? (1-yes, 2-no) no longer applies
         .Add "solver_mip" 'solving limits max subproblems MAXLONG
         .Add "solver_mni" 'max time wo improve in secs (30)
         .Add "solver_mrt" 'mutation rate (.075)

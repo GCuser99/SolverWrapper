@@ -11,7 +11,7 @@ Attribute VB_Description = "This private class is used to communicate directly w
 '%ModuleDescription "This private class is used to communicate directly with DLL and is not exposed to User."
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.2
+' SolverWrapper v0.3
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '

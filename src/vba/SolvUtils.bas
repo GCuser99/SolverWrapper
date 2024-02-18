@@ -1,7 +1,7 @@
 Attribute VB_Name = "SolvUtils"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.2
+' SolverWrapper v0.3
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -632,7 +632,7 @@ Public Sub AddHeaderToSolutions(ByRef solutions() As Variant, ByRef ws As Worksh
     Next a
     
     solutions(i + 1, 1) = GetNameOfRange(ws.Names("solver_opt").RefersToRange)
-    solutions(i + 2, 1) = "Pass"
+    solutions(i + 2, 1) = "Valid"
 End Sub
 
 ' ==========================================================================
