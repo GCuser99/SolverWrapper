@@ -28,8 +28,10 @@ The following example automates solving the problem in SOLVSAMP.XLS on the "Port
 
 ```vba
 Sub Solve_Portfolio_of_Securities()
-    Dim Problem As New SolvProblem
+    Dim Problem As SolvProblem
     Dim ws As Worksheet
+
+    Set Problem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Portfolio of Securities")
     
