@@ -1,4 +1,4 @@
-These examples automate solving each of the optimization problems in SOLVSAMP.XLS, which is distributed with MS Office Excel and can be found programatically in:
+These examples automate solving each of the optimization problems in SOLVSAMP.XLS, which is distributed with MS Office Excel and can be found programmatically in:
 ```vba
 Application.LibraryPath & "\..\SAMPLES\SOLVSAMP.XLS"
 ```
