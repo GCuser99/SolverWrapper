@@ -1,13 +1,15 @@
 Attribute VB_Name = "test_Engineering_Design"
 '@folder("SolverWrapper.Examples")
 
+Option Explicit
+
 'This example automates solving the problem in SOLVSAMP.XLS on the "Engineering Design" worksheet.
 '
 'SOLVSAMP.XLS is distributed with MS Office Excel and can be found in:
 '
 'Application.LibraryPath & "\..\SAMPLES\SOLVSAMP.XLS"
 '
-'which on some systems can be found here:
+'which on many systems can be found here:
 'C:\Program Files\Microsoft Office\root\Office16\SAMPLES\SOLVSAMP.XLS
 '
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
@@ -15,8 +17,10 @@ Attribute VB_Name = "test_Engineering_Design"
 
 'This is a non-linear problem and is best solved with slvGRG_Nonlinear
 Sub Solve_Engineering_Design()
-    Dim Problem As New SolvProblem
+    Dim Problem As SolvProblem
     Dim ws As Worksheet
+    
+    Set Problem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Engineering Design")
     

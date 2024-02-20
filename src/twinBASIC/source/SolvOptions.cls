@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set Solver Options."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.3
+' SolverWrapper v0.4
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -212,9 +212,9 @@ Public Property Get AssumeNonNeg() As Boolean
     AssumeNonNeg = (NameToLong("solver_neg", oSolverSheet) = 1)
 End Property
 
-'%Description("In the Population Size box, type the number of different starting points (values for the decision variables) you want the multistart method to consider. The minimum population size is 10; if you supply a value less than 10 in this box, or leave it blank, the multistart method uses a population size of 10 times the number of decision variables, but no more than 200.")
+'%Description("The number of different starting points (values for the decision variables) you want the multistart method to consider. The minimum population size is 10; if you supply a value less than 10, or leave it blank, the multistart method uses a population size of 10 times the number of decision variables, but no more than 200.")
 Public Property Let PopulationSize(ByVal val As Long)
-Attribute PopulationSize.VB_Description = "In the Population Size box, type the number of different starting points (values for the decision variables) you want the multistart method to consider. The minimum population size is 10; if you supply a value less than 10 in this box, or leave it blank, the multistart method uses a population size of 10 times the number of decision variables, but no more than 200."
+Attribute PopulationSize.VB_Description = "The number of different starting points (values for the decision variables) you want the multistart method to consider. The minimum population size is 10; if you supply a value less than 10, or leave it blank, the multistart method uses a population size of 10 times the number of decision variables, but no more than 200."
     With oSolverSheet.Names
         .Add Name:="solver_ssz", RefersToLocal:=val, Visible:=nameVisible
     End With

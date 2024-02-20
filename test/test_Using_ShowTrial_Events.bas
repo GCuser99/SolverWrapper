@@ -1,13 +1,15 @@
 Attribute VB_Name = "test_Using_ShowTrial_Events"
 '@folder("SolverWrapper.Examples")
 
+Option Explicit
+
 'This example automates solving the problem in SOLVSAMP.XLS on the "Portfolio of Securities" worksheet.
 '
 'SOLVSAMP.XLS is distributed with MS Office Excel and can be found in:
 '
 'Application.LibraryPath & "\..\SAMPLES\SOLVSAMP.XLS"
 '
-'which on some systems can be found here:
+'which on many systems can be found here:
 'C:\Program Files\Microsoft Office\root\Office16\SAMPLES\SOLVSAMP.XLS
 '
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
@@ -16,8 +18,10 @@ Attribute VB_Name = "test_Using_ShowTrial_Events"
 'To use SolverWrapper events, user must write their own event sink class (see example SolverEventSink class in test folder)
 'Then connect to that class as in below example. Be sure to set EnableEvents of the Solver class to True.
 Sub Solve_Portfolio_of_Securities_with_Events()
-    Dim Problem As New SolvProblem
+    Dim Problem As SolvProblem
     Dim ws As Worksheet
+    
+    Set Problem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Portfolio of Securities")
     
@@ -42,7 +46,7 @@ Sub Solve_Portfolio_of_Securities_with_Events()
     'must enable events to use this
     Problem.Solver.EnableEvents = True
     If Problem.Solver.EnableEvents Then
-        'connect-up ShowTrial event proccessing class (optional!)
+        'connect-up events proccessing class
         Dim eventSink As SolverEventSink
         Set eventSink = New SolverEventSink
         Set eventSink.Problem = Problem

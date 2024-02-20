@@ -1,7 +1,7 @@
 Attribute VB_Name = "SolvUtils"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.3
+' SolverWrapper v0.4
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -445,7 +445,6 @@ Public Function RoundNum(ByVal number As Double, Optional ByVal numDigitsAfterDe
     End If
 End Function
 
-'this is probably better accomplished with a global collection....
 Public Function ReturnSolverMsg(ByVal solverResult As Long) As String
     Select Case solverResult
         Case 0
@@ -640,8 +639,8 @@ End Sub
 ' ==========================================================================
 
 Private Function CompareValues(ByVal lhs As Double, ByVal rel As SlvRelation, ByVal rhs As Double, ByVal prec As Double) As Boolean
-    'reverse engineered comparison tests given Solver input precision
     'used to assess whether a contraint is satisfied
+    'reverse engineered from comparison tests on Solver results
     Dim epsilon As Double
     epsilon = 1E-20
     CompareValues = False

@@ -1,13 +1,15 @@
 Attribute VB_Name = "test_Shipping_Routes"
 '@folder("SolverWrapper.Examples")
 
+Option Explicit
+
 'This example automates solving the problem in SOLVSAMP.XLS on the "Shipping Routes" worksheet.
 '
 'SOLVSAMP.XLS is distributed with MS Office Excel and can be found in:
 '
 'Application.LibraryPath & "\..\SAMPLES\SOLVSAMP.XLS"
 '
-'which on some systems can be found here:
+'which on many systems can be found here:
 'C:\Program Files\Microsoft Office\root\Office16\SAMPLES\SOLVSAMP.XLS
 '
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
@@ -16,8 +18,10 @@ Attribute VB_Name = "test_Shipping_Routes"
 'this is a linear problem so slvSimplex_LP is faster
 'however, this problem has more than one solution - use slvGRG_Nonlinear for multiple solutions
 Sub Solve_Shipping_Routes_Slower()
-    Dim Problem As New SolvProblem
+    Dim Problem As SolvProblem
     Dim ws As Worksheet
+    
+    Set Problem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Shipping Routes")
     
@@ -47,8 +51,10 @@ Sub Solve_Shipping_Routes_Slower()
 End Sub
 
 Sub Solve_Shipping_Routes_Faster()
-    Dim Problem As New SolvProblem
+    Dim Problem As SolvProblem
     Dim ws As Worksheet
+    
+    Set Problem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Shipping Routes")
     

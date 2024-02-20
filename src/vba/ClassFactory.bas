@@ -3,7 +3,7 @@ Attribute VB_Description = "This class is used for object instantiation when ref
 '%ModuleDescription "This class is used for object instantiation when referencing SolverWrapper externally from another VBA project"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.3
+' SolverWrapper v0.4
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '

@@ -12,7 +12,7 @@ Attribute VB_Description = "The main class to define the Solver problem, includi
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.3
+' SolverWrapper v0.4
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -135,6 +135,32 @@ Private Enum SolverMode
     CancelRestoreMode = 2
     [_First] = 0
     [_Last] = 2
+End Enum
+
+Public Enum SlvReturnMsgCode
+    slvSolutionFound = 0
+    slvConvergedOnSolution = 1
+    slvCannotImproveSolution = 2
+    slvMaxIterReached = 3
+    slvObjectiveNotConvergent = 4
+    slvCouldNotFindSolution = 5
+    slvStoppedByUser = 6
+    slvProblemNotLinear = 7
+    slvProblemTooLarge = 8
+    slvErrorInObjectiveOrConstraint = 9
+    slvMaxTimeReached = 10
+    slvNotEnoughMemory = 11
+    slvNoDocumentation = 12
+    slvErrorInModel = 13
+    slvFoundIntegerSolution = 14
+    slvMaxSolutionsReached = 15
+    slvMaxSubProblemsReached = 16
+    slvConvergedToGlobalSolution = 17
+    slvAllVariablesMustBeBounded = 18
+    slvBoundsConflictWithBinOrAllDif = 19
+    slvBoundsAllowNoSolution = 20
+    [_First] = 0
+    [_Last] = 20
 End Enum
 
 ' ==========================================================================
