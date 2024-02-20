@@ -11,7 +11,7 @@ Attribute VB_Description = "This private class is used to communicate directly w
 '@ModuleDescription "This private class is used to communicate directly with DLL and is not exposed to User."
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.4
+' SolverWrapper v0.6
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -182,7 +182,7 @@ Public Function RunSolver() As Long
     RunSolver = returnMsgCode
 
     'post return message to status bar
-    Application.StatusBar = ReturnSolverMsg(returnMsgCode)
+    Application.StatusBar = "Excel Solver - " & ReturnSolverMsg(returnMsgCode)
     
     'finish up on events
     If enableInternalEvents Then

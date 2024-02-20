@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set Solver Options."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.4
+' SolverWrapper v0.6
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '

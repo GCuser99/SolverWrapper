@@ -1,7 +1,7 @@
 Attribute VB_Name = "SolvUtils"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.4
+' SolverWrapper v0.6
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -448,49 +448,49 @@ End Function
 Public Function ReturnSolverMsg(ByVal solverResult As Long) As String
     Select Case solverResult
         Case 0
-            ReturnSolverMsg = "Excel Solver - Solver found a solution. All constraints and optimality conditions are satisfied (0)."
+            ReturnSolverMsg = "Solver found a solution. All constraints and optimality conditions are satisfied (0)."
         Case 1
-            ReturnSolverMsg = "Excel Solver - Solver has converged to the current solution. All constraints are satisfied (1)."
+            ReturnSolverMsg = "Solver has converged to the current solution. All constraints are satisfied (1)."
         Case 2
-            ReturnSolverMsg = "Excel Solver - Solver cannot improve the current solution. All constraints are satisfied (2)."
+            ReturnSolverMsg = "Solver cannot improve the current solution. All constraints are satisfied (2)."
         Case 3
-            ReturnSolverMsg = "Excel Solver - Stop chosen when the maximum iteration limit was reached (3)."
+            ReturnSolverMsg = "Stop chosen when the maximum iteration limit was reached (3)."
         Case 4
-            ReturnSolverMsg = "Excel Solver - The Objective Cell values do not converge (4)."
+            ReturnSolverMsg = "The Objective Cell values do not converge (4)."
         Case 5
-            ReturnSolverMsg = "Excel Solver - Solver could not find a feasible solution (5)."
+            ReturnSolverMsg = "Solver could not find a feasible solution (5)."
         Case 6
-            ReturnSolverMsg = "Excel Solver - Solver stopped at user's request (6)."
+            ReturnSolverMsg = "Solver stopped at user's request (6)."
         Case 7
-            ReturnSolverMsg = "Excel Solver - The linearity conditions required by this LP Solver are not satisfied (7)."
+            ReturnSolverMsg = "The linearity conditions required by this LP Solver are not satisfied (7)."
         Case 8
-            ReturnSolverMsg = "Excel Solver - The problem is too large for Solver to handle (8)."
+            ReturnSolverMsg = "The problem is too large for Solver to handle (8)."
         Case 9
-            ReturnSolverMsg = "Excel Solver - Solver encountered an error value in the objective cell or a constraint cell (9)."
+            ReturnSolverMsg = "Solver encountered an error value in the objective cell or a constraint cell (9)."
         Case 10
-            ReturnSolverMsg = "Excel Solver - Stop chosen when the maximum time limit was reached (10)."
+            ReturnSolverMsg = "Stop chosen when the maximum time limit was reached (10)."
         Case 11
-            ReturnSolverMsg = "Excel Solver - There is not enough memory available to solve the problem (11)."
+            ReturnSolverMsg = "There is not enough memory available to solve the problem (11)."
         Case 12
-            ReturnSolverMsg = "Excel Solver - Message 12 - no documentation"
+            ReturnSolverMsg = "Message 12 - no documentation"
         Case 13
-            ReturnSolverMsg = "Excel Solver - Error in model. Please verify that all cells and constraints are valid (13)."
+            ReturnSolverMsg = "Error in model. Please verify that all cells and constraints are valid (13)."
         Case 14
-            ReturnSolverMsg = "Excel Solver - Solver found an integer solution within tolerance. All constraints are satisfied (14)."
+            ReturnSolverMsg = "Solver found an integer solution within tolerance. All constraints are satisfied (14)."
         Case 15
-            ReturnSolverMsg = "Excel Solver - Stop chosen when the maximum number of [integer or feasible] solutions was reached (15)."
+            ReturnSolverMsg = "Stop chosen when the maximum number of [integer or feasible] solutions was reached (15)."
         Case 16
-            ReturnSolverMsg = "Excel Solver - Stop chosen when the maximum number of [integer] subproblems was reached (16)."
+            ReturnSolverMsg = "Stop chosen when the maximum number of [integer] subproblems was reached (16)."
         Case 17
-            ReturnSolverMsg = "Excel Solver - Solver converged in probability to a global solution (17)."
+            ReturnSolverMsg = "Solver converged in probability to a global solution (17)."
         Case 18
-            ReturnSolverMsg = "Excel Solver - All variables must have both upper and lower bounds (18)."
+            ReturnSolverMsg = "All variables must have both upper and lower bounds (18)."
         Case 19
-            ReturnSolverMsg = "Excel Solver - Variable bounds conflict in binary or alldifferent constraint (19)."
+            ReturnSolverMsg = "Variable bounds conflict in binary or alldifferent constraint (19)."
         Case 20
-            ReturnSolverMsg = "Excel Solver - Lower and upper bounds on variables allow no feasible solution (20)."
+            ReturnSolverMsg = "Lower and upper bounds on variables allow no feasible solution (20)."
         Case Else
-            ReturnSolverMsg = "Excel Solver - Solver encountered an unknown error."
+            ReturnSolverMsg = "Solver encountered an unknown error."
     End Select
 End Function
 
@@ -561,7 +561,7 @@ Public Function AreConstraintsSatisfied(ByRef ws As Worksheet) As Boolean
                     Exit Function
                 End If
             Next cell
-        Case SlvRelation.slvDif
+        Case SlvRelation.slvAllDif
             Set lhs = NameToRange(ws.Names("solver_lhs" & i))
             For j = 1 To lhs.Count
                 For k = 1 To lhs.Count

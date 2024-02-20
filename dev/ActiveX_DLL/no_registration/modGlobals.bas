@@ -47,7 +47,7 @@ Public Enum SlvRelation
     slvGreaterThanEqual = 3
     slvInt = 4
     slvBin = 5
-    slvDif = 6
+    slvAllDif = 6
     [_First] = 1
     [_Last] = 6
 End Enum
@@ -70,8 +70,16 @@ Public Enum SlvCallbackReason
     [_Last] = 5
 End Enum
 
-Public Enum SlvReturnMsgCode
-    slvSolutionFound = 0
+Private Enum SolverMode
+    SolveMode = 0
+    CloseMode = 1
+    CancelRestoreMode = 2
+    [_First] = 0
+    [_Last] = 2
+End Enum
+
+Public Enum SlvMsgCode
+    slvFoundSolution = 0
     slvConvergedOnSolution = 1
     slvCannotImproveSolution = 2
     slvMaxIterReached = 3
@@ -95,3 +103,4 @@ Public Enum SlvReturnMsgCode
     [_First] = 0
     [_Last] = 20
 End Enum
+

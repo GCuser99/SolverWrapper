@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set/manage Solver constraints."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.4
+' SolverWrapper v0.6
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -84,7 +84,7 @@ Attribute Add.VB_Description = "Adds a constraint to the current problem."
             ws.Names.Add Name:="solver_rhs" & CStr(solver_num), RefersTo:="=""integer""", Visible:=nameVisible
         Case SlvRelation.slvBin
             ws.Names.Add Name:="solver_rhs" & CStr(solver_num), RefersTo:="=""binary""", Visible:=nameVisible
-        Case SlvRelation.slvDif
+        Case SlvRelation.slvAllDif
             ws.Names.Add Name:="solver_rhs" & CStr(solver_num), RefersTo:="=""AllDifferent""", Visible:=nameVisible
         End Select
     Else 'Relation <=3
@@ -183,7 +183,7 @@ Attribute Relax.VB_Description = "Deletes a constraint from the current problem.
                     ws.Names.Add Name:="solver_rhs" & CStr(solver_num), RefersTo:="=""integer""", Visible:=nameVisible
                 Case SlvRelation.slvBin
                     ws.Names.Add Name:="solver_rhs" & CStr(solver_num), RefersTo:="=""binary""", Visible:=nameVisible
-                Case SlvRelation.slvDif
+                Case SlvRelation.slvAllDif
                     ws.Names.Add Name:="solver_rhs" & CStr(solver_num), RefersTo:="=""AllDifferent""", Visible:=nameVisible
                 End Select
             Else 'Relation <=3
@@ -296,7 +296,7 @@ Private Sub ProcessConstraintParams(ByRef cellRef As Variant, ByVal relation As 
     'check that lhs refer(s) to the decision variables
     If relation > 3 Then
         If Not NameExists("solver_adj", ws) Then
-            Err.Raise vbObjectError + 4001, , "Cannot set constraint relations slvInt, slvBin, or slvDif, until after the decision variables are defined."
+            Err.Raise vbObjectError + 4001, , "Cannot set constraint relations slvInt, slvBin, or slvAllDif, until after the decision variables are defined."
         End If
         If Not IsRangeInRange(ws.Range(cellRef), ws.Range(ws.Names("solver_adj").Name)) Then
             'they are not the same

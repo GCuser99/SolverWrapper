@@ -12,7 +12,7 @@ Attribute VB_Description = "The main class to define the Solver problem, includi
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.4
+' SolverWrapper v0.6
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -106,7 +106,7 @@ Public Enum SlvRelation
     slvGreaterThanEqual = 3
     slvInt = 4
     slvBin = 5
-    slvDif = 6
+    slvAllDif = 6
     [_First] = 1
     [_Last] = 6
 End Enum
@@ -137,8 +137,8 @@ Private Enum SolverMode
     [_Last] = 2
 End Enum
 
-Public Enum SlvReturnMsgCode
-    slvSolutionFound = 0
+Public Enum SlvMsgCode
+    slvFoundSolution = 0
     slvConvergedOnSolution = 1
     slvCannotImproveSolution = 2
     slvMaxIterReached = 3
@@ -237,12 +237,6 @@ Attribute SolveIt.VB_Description = "Solves the currently defined problem. Return
     oSolvDLL.enableUserDefinedCallback = (Me.Solver.UserCallbackMacroName <> vbNullString)
     
     SolveIt = oSolvDLL.RunSolver
-End Function
-
-'@Description("Returns the string message associated with the Solver code returned by SolveIt method.")
-Public Function SolverCodeToString(ByVal code As Long) As String
-Attribute SolverCodeToString.VB_Description = "Returns the string message associated with the Solver code returned by SolveIt method."
-    SolverCodeToString = ReturnSolverMsg(code)
 End Function
 
 '@Description("Cleans the problem worksheet of all solver associated info.")

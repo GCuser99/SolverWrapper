@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to manage Solver Engine and Options."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.4
+' SolverWrapper v0.6
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -122,6 +122,12 @@ End Property
 Public Property Get UserCallbackMacroName() As String
     UserCallbackMacroName = userDefinedCallback 'End Property
 End Property
+
+'%Description("Returns the string message associated with the Solver code returned by SolveIt method.")
+Public Function MsgCodeToString(ByVal code As Long) As String
+Attribute MsgCodeToString.VB_Description = "Returns the string message associated with the Solver code returned by SolveIt method."
+    MsgCodeToString = ReturnSolverMsg(code)
+End Function
 
 ' ==========================================================================
 ' Private members

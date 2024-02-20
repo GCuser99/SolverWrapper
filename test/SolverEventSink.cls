@@ -51,7 +51,7 @@ End Sub
 
 Private Sub oProblem_AfterSolve(ByVal returnMsgCode As Long, ByVal trialNum As Long)
     Debug.Print "Solver completed with iterations= " & trialNum
-    Debug.Print "Solver return code= " & oProblem.SolverCodeToString(returnMsgCode)
+    Debug.Print "Solver return code= " & oProblem.Solver.MsgCodeToString(returnMsgCode)
 End Sub
 
 Public Property Set Problem(obj As SolvProblem)
