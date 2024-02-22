@@ -1,7 +1,7 @@
 Attribute VB_Name = "SolvUtils"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.6
+' SolverWrapper v0.7
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -49,7 +49,7 @@ Public Application As Excel.Application
 ' Public members
 ' ==========================================================================
 
-Public Function CellRefToRange(cellRef As Variant, Optional ws As Worksheet) As Range
+Public Function CellRefToRange(ByVal cellRef As Variant, Optional ws As Worksheet) As Range
     Dim i As Long
     Dim tmp As Range
     
@@ -76,7 +76,7 @@ Public Function CellRefToRange(cellRef As Variant, Optional ws As Worksheet) As 
     Set CellRefToRange = RemoveRangeOverlap(tmp)
 End Function
 
-Public Function CellRefToString(cellRef As Variant, Optional ws As Worksheet) As String
+Public Function CellRefToString(ByVal cellRef As Variant, Optional ws As Worksheet) As String
     Dim tmp As String
     tmp = CellRefToRange(cellRef, ws).Address
     If Application.International(xlListSeparator) <> "," Then
@@ -101,7 +101,7 @@ EH:
 End Function
 #Else
 'As of tB v423 - this does not work after Reset in an event procedure - keep in VBA as a reminder
-Public Function NameExists(stringName As String, Optional ws As Worksheet) As Boolean
+Public Function NameExists(ByVal stringName As String, Optional ws As Worksheet) As Boolean
     Dim errTest As String
     If ws Is Nothing Then Set ws = Application.ActiveSheet
     On Error Resume Next
@@ -244,13 +244,13 @@ Public Function NameToRange(n As Name) As Range
 End Function
 
 'checks if cell range string represents a single contiguous cell area
-Public Function IsCellReference(thecells As Variant, Optional ws As Worksheet) As Boolean
+Public Function CellRefHasOneArea(ByVal thecells As Variant, Optional ws As Worksheet) As Boolean
     If ws Is Nothing Then Set ws = Application.ActiveSheet
     On Error Resume Next
     If ws.Range(thecells).Areas.Count > 1 Then
-       IsCellReference = False
+       CellRefHasOneArea = False
     Else
-       IsCellReference = True
+       CellRefHasOneArea = True
     End If
     On Error GoTo 0
 End Function
@@ -303,7 +303,7 @@ Public Function IsRangeInRange(testRange As Range, inRange As Range) As Boolean
 End Function
 
 Public Function Max(ParamArray numberList() As Variant) As Double
-    Dim i As Integer
+    Dim i As Long
     Max = numberList(LBound(numberList))
     For i = LBound(numberList) + 1 To UBound(numberList)
         If numberList(i) > Max Then
@@ -313,7 +313,7 @@ Public Function Max(ParamArray numberList() As Variant) As Double
 End Function
 
 Public Function Min(ParamArray numberList() As Variant) As Double
-    Dim i As Integer
+    Dim i As Long
     Min = numberList(LBound(numberList))
     For i = LBound(numberList) + 1 To UBound(numberList)
         If numberList(i) < Min Then
@@ -495,7 +495,7 @@ Public Function ReturnSolverMsg(ByVal solverResult As Long) As String
 End Function
 
 Public Function AreConstraintsSatisfied(ByRef ws As Worksheet) As Boolean
-    Dim solver_num As Integer
+    Dim solver_num As Long
     Dim i As Long
     Dim rel As Long
     Dim lhs As Range
@@ -524,41 +524,61 @@ Public Function AreConstraintsSatisfied(ByRef ws As Worksheet) As Boolean
                 Set rhs = NameToRange(ws.Names("solver_rhs" & i))
                 If rhs.Count = lhs.Count Then
                     For j = 1 To lhs.Count
-                        If Not CompareValues(lhs(j).value, rel, rhs(j).value, prec) Then
-                            AreConstraintsSatisfied = False
-                            Exit Function
+                        If IsNumeric(lhs(j).value) Then
+                            If Not CompareValues(lhs(j).value, rel, rhs(j).value, prec) Then
+                                AreConstraintsSatisfied = False
+                                Exit Function
+                            End If
+                        Else
+                            Err.Raise 4001, , "Constraint cell " & lhs.Address & " must evaluate to a number"
                         End If
                     Next j
                 Else
                     For j = 1 To lhs.Count
-                        If Not CompareValues(lhs(j).value, rel, rhs(1).value, prec) Then
-                            AreConstraintsSatisfied = False
-                            Exit Function
+                        If IsNumeric(lhs(j).value) Then
+                            If Not CompareValues(lhs(j).value, rel, rhs(1).value, prec) Then
+                                AreConstraintsSatisfied = False
+                                Exit Function
+                            End If
+                        Else
+                            Err.Raise 4001, , "Constraint cell " & lhs.Address & " must evaluate to a number"
                         End If
                     Next j
                 End If
             Else
                 For Each cell In lhs
-                    If Not CompareValues(cell.value, rel, NameToDbl("solver_rhs" & i, ws), prec) Then
-                        AreConstraintsSatisfied = False
-                        Exit Function
+                    If IsNumeric(cell.value) Then
+                        If Not CompareValues(cell.value, rel, NameToDbl("solver_rhs" & i, ws), prec) Then
+                            AreConstraintsSatisfied = False
+                            Exit Function
+                        End If
+                    Else
+                        Err.Raise 4001, , "Constraint cell " & cell.Address & " must evaluate to a number"
                     End If
                 Next cell
             End If
         Case SlvRelation.slvInt
             Set lhs = NameToRange(ws.Names("solver_lhs" & i))
             For Each cell In lhs
-                If Not CompareValues(1 + (cell.value - RoundNum(cell.value)), SlvRelation.slvEqual, 1#, prec) Then
-                    AreConstraintsSatisfied = False
-                    Exit Function
+                If IsNumeric(cell.value) Then
+                    If Not CompareValues(1 + (cell.value - RoundNum(cell.value)), SlvRelation.slvEqual, 1#, prec) Then
+                        AreConstraintsSatisfied = False
+                        Exit Function
+                    End If
+                Else
+                    Err.Raise 4001, , "Constraint cell " & cell.Address & " must evaluate to a number"
                 End If
             Next cell
         Case SlvRelation.slvBin
             Set lhs = NameToRange(ws.Names("solver_lhs" & i))
             For Each cell In lhs
-                If Not (CompareValues(cell.value, SlvRelation.slvEqual, 1#, prec) Or CompareValues(cell.value, SlvRelation.slvEqual, 0#, prec)) Then
-                    AreConstraintsSatisfied = False
-                    Exit Function
+                If IsNumeric(cell.value) Then
+                    If Not (CompareValues(cell.value, SlvRelation.slvEqual, 1#, prec) Or CompareValues(cell.value, SlvRelation.slvEqual, 0#, prec)) Then
+                        AreConstraintsSatisfied = False
+                        Exit Function
+                    End If
+                Else
+                    Err.Raise 4001, , "Constraint cell " & cell.Address & " must evaluate to a number"
                 End If
             Next cell
         Case SlvRelation.slvAllDif
@@ -566,9 +586,13 @@ Public Function AreConstraintsSatisfied(ByRef ws As Worksheet) As Boolean
             For j = 1 To lhs.Count
                 For k = 1 To lhs.Count
                     If j <> k Then
-                        If CompareValues(lhs(j).value, SlvRelation.slvEqual, lhs(k).value, prec) Then
-                            AreConstraintsSatisfied = False
-                            Exit Function
+                        If IsNumeric(lhs(j).value) Then
+                            If CompareValues(lhs(j).value, SlvRelation.slvEqual, lhs(k).value, prec) Then
+                                AreConstraintsSatisfied = False
+                                Exit Function
+                            End If
+                        Else
+                            Err.Raise 4001, , "Constraint cell " & lhs.Address & " must evaluate to a number"
                         End If
                     End If
                 Next k
@@ -814,7 +838,7 @@ End Function
 
 Private Function RemoveRangeOverlap(r As Range) As Range
     'adapted from https://opensolver.org/excel-programming/
-    Dim s As Range, a As Range, i As Integer
+    Dim s As Range, a As Range, i As Long
     
     If r.Areas.Count = 1 Then
         Set RemoveRangeOverlap = r

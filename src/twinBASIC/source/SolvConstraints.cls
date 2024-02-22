@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set/manage Solver constraints."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.6
+' SolverWrapper v0.7
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -65,7 +65,7 @@ Attribute Add.VB_Description = "Adds a constraint to the current problem."
     End If
     
     Dim ws As Worksheet
-    Dim solver_num As Integer
+    Dim solver_num As Long
     
     Set ws = oSolverSheet
     
@@ -88,7 +88,6 @@ Attribute Add.VB_Description = "Adds a constraint to the current problem."
             ws.Names.Add Name:="solver_rhs" & CStr(solver_num), RefersTo:="=""AllDifferent""", Visible:=nameVisible
         End Select
     Else 'Relation <=3
-        If Left$(formulaText, 1) <> "=" Then formulaText = "=" & formulaText
         ws.Names.Add Name:="solver_lhs" & CStr(solver_num), RefersTo:="=" & ws.Range(cellRef).Address, Visible:=nameVisible
         ws.Names.Add Name:="solver_rel" & CStr(solver_num), RefersTo:=relation, Visible:=nameVisible
         ws.Names.Add Name:="solver_rhs" & CStr(solver_num), RefersTo:=formulaText, Visible:=nameVisible
@@ -114,10 +113,10 @@ Attribute Count.VB_Description = "Gets the total number of constraints set for t
 End Property
 
 '%Description("Deletes a constraint from the current problem.")
-Public Sub Relax(ByVal cellRef As Variant, ByVal relation As SlvRelation, Optional formulaText As Variant)
+Public Sub Relax(ByVal cellRef As Variant, ByVal relation As SlvRelation, Optional ByVal formulaText As Variant)
 Attribute Relax.VB_Description = "Deletes a constraint from the current problem."
     Dim ws As Worksheet
-    Dim solver_num As Integer
+    Dim solver_num As Long
     Dim saveScreenUpdating As Long
     Dim savConstraints As New Collection
     Dim i As Long
@@ -222,7 +221,7 @@ End Sub
 Public Sub Change(ByVal cellRef As Variant, ByVal relation As SlvRelation, ByVal newFormulaText As Variant)
 Attribute Change.VB_Description = "Changes a constraint of the current problem. If cellRef AND relation do not match an existing constraint, then use Relax and Add instead."
     Dim ws As Worksheet
-    Dim solver_num As Integer
+    Dim solver_num As Long
     Dim matchCount As Long
     Dim matchNum As Long
     Dim i As Long
@@ -275,7 +274,7 @@ End Function
 ' Private members
 ' ==========================================================================
 
-Private Sub ProcessConstraintParams(ByRef cellRef As Variant, ByVal relation As Integer, Optional ByRef formulaText As Variant)
+Private Sub ProcessConstraintParams(ByRef cellRef As Variant, ByVal relation As Long, Optional ByRef formulaText As Variant)
     Dim ws As Worksheet
     
     Set ws = oSolverSheet
@@ -292,26 +291,25 @@ Private Sub ProcessConstraintParams(ByRef cellRef As Variant, ByVal relation As 
         Err.Raise vbObjectError + 4001, , "Please specify a valid cell reference"
     End If
     
-    'could do this check in SolveIt right before calling dll - that way use can do things in any order
+    'could do this check in SolveIt right before calling dll - that way user can do things in any order
     'check that lhs refer(s) to the decision variables
     If relation > 3 Then
         If Not NameExists("solver_adj", ws) Then
             Err.Raise vbObjectError + 4001, , "Cannot set constraint relations slvInt, slvBin, or slvAllDif, until after the decision variables are defined."
         End If
         If Not IsRangeInRange(ws.Range(cellRef), ws.Range(ws.Names("solver_adj").Name)) Then
-            'they are not the same
+            'the int, bin, and alldifferent constraints can only be applied to decision vars
             Err.Raise vbObjectError + 4001, , "The selected Relation only applies to contraints on decision variables."
         End If
     End If
     
-    'the int, bin, and alldifferent constraints can only be applied to decision vars
-
     If relation <= 3 Then
         'process formula text (RHS)
         If IsMissing(formulaText) Or IsError(formulaText) Then Err.Raise vbObjectError + 4001, , "Please specify a valid formula text"
+        
         formulaText = ProcessFormulaText(formulaText)
         
-        If IsCellReference(formulaText) Then
+        If CellRefHasOneArea(formulaText, ws) Then
             'cell reference consists of a single contiguous cell block
             If ws.Range(formulaText).Count > 1 Then
                 'multiple cells, so must match count of cellRef
@@ -321,6 +319,7 @@ Private Sub ProcessConstraintParams(ByRef cellRef As Variant, ByVal relation As 
             End If
         Else
             'then to be valid, must be either numeric or a formula text that evaluates to numeric
+            'Evaluate will take a formula like "=$o2" and convert it to the actual value of cell $o2
             If Not IsNumeric(Application.Evaluate(formulaText)) Then
                 Err.Raise vbObjectError + 4001, , "The formula text does not evaluate to a valid formula."
             End If
@@ -328,20 +327,19 @@ Private Sub ProcessConstraintParams(ByRef cellRef As Variant, ByVal relation As 
     End If
 End Sub
 
-Private Function ProcessFormulaText(formulaText As Variant) As String
+Private Function ProcessFormulaText(ByVal formulaText As Variant) As String
     Dim tmp As String
     Select Case TypeName(formulaText)
     Case "String"
         tmp = Application.ConvertFormula(formulaText, Application.ReferenceStyle, Application.ReferenceStyle, True)
         If Application.ReferenceStyle = xlR1C1 Then tmp = Application.ConvertFormula(tmp, xlR1C1, xlA1)
         If Application.International(xlDecimalSeparator) <> "." Then tmp = Replace(tmp, Application.International(xlDecimalSeparator), ".")
-        'convert to absolute formula
     Case "Range"
         tmp = formulaText.Address
     Case Else
         tmp = formulaText
     End Select
-    'If Left$(tmp, 1) <> "=" Then tmp = "=" & tmp
+    If Left$(tmp, 1) <> "=" Then tmp = "=" & tmp
     ProcessFormulaText = tmp
 End Function
 

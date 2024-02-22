@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to define the Solver Objective function."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.6
+' SolverWrapper v0.7
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
