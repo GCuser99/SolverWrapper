@@ -15,8 +15,8 @@ This repo offers two compatible solutions for automating Solver via VBA. One con
 - Unique implementation that communicates directly with SOLVER32.DLL (bypassing SOLVER Add-in)
 - Can either be implemented as a VBA code library or [twinBASIC](https://twinbasic.com/preview.html) ActiveX DLL object model
 - Capability to save intermediate trial solutions, as opposed to just one BEST solution (often more than one exists!)
-- Enhanced Solver callback protocol
-- Alternative event-based means of monitoring solution progress versus using the callback
+- Enhanced Solver [callback protocol](https://github.com/GCuser99/SolverWrapper/wiki#using-the-enhanced-callback)
+- Alternative [event-based means](https://github.com/GCuser99/SolverWrapper/wiki#using-solverwrapper-events) of monitoring solution progress versus using the callback
 - Other miscellaneous enhancements
 - Help documentation is available in the [SolverWrapper Wiki](https://github.com/GCuser99/SolverWrapper/wiki)
 
@@ -46,9 +46,11 @@ Sub Solve_Portfolio_of_Securities()
     Problem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
     
     'add some constraints
-    Problem.Constraints.AddBounded "E10:E14", 0#, 1#
-    Problem.Constraints.Add "E16", slvEqual, 1#
-    Problem.Constraints.Add "G18", slvLessThanEqual, 0.071
+    With Problem.Constraints
+        .AddBounded "E10:E14", 0#, 1#
+        .Add "E16", slvEqual, 1#
+        .Add "G18", slvLessThanEqual, 0.071
+    End With
     
     'set the solver engine to use
     Problem.Solver.Method = slvGRG_Nonlinear
