@@ -15,76 +15,82 @@ Option Explicit
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
 'and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
 
+'Notes:
 'slvGRG_Nonlinear finds the optimum fast
+'there are (at least) two solutions that are nearly tied for non-linear case
 Sub Solve_Product_Mix_Non_Linear()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Product Mix")
     'this makes the problem non-linear
     ws.Range("$H$15").value = 0.9
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "D18", slvMaximize
+    oProblem.Objective.Define "D18", slvMaximize
     
-    Problem.DecisionVars.Add "$D$9:$F$9"
-    Problem.DecisionVars.Initialize 100
+    oProblem.DecisionVars.Add "$D$9:$F$9"
+    oProblem.DecisionVars.Initialize 100
     
-    Problem.Constraints.AddBounded "$D$9:$F$9", 0, 800
-    Problem.Constraints.Add "$C$11:$C$15", slvLessThanEqual, "$B$11:$B$15"
-    Problem.Constraints.Add "$D$9:$F$9", slvInt
+    With oProblem.Constraints
+        .AddBounded "$D$9:$F$9", 0, 800
+        .Add "$C$11:$C$15", slvLessThanEqual, "$B$11:$B$15"
+        .Add "$D$9:$F$9", slvInt
+    End With
     
-    Problem.Solver.Method = slvGRG_Nonlinear
+    oProblem.Solver.Method = slvGRG_Nonlinear
     
-    Problem.Solver.Options.MaxTimeNoImp = 2
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Options.MaxTimeNoImp = 2
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
 
-    Problem.SolveIt
+    oProblem.SolveIt
 
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("n1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("n1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("n1"), keepOnlyValid:=True
     End If
 End Sub
 
 Sub Solve_Product_Mix_Linear()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Product Mix")
     'this makes the problem linear
     ws.Range("$H$15").value = 1#
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "D18", slvMaximize
+    oProblem.Objective.Define "D18", slvMaximize
     
-    Problem.DecisionVars.Add "$D$9:$F$9"
-    Problem.DecisionVars.Initialize 100
+    oProblem.DecisionVars.Add "$D$9:$F$9"
+    oProblem.DecisionVars.Initialize 100
     
-    Problem.Constraints.AddBounded "$D$9:$F$9", 0, 800
-    Problem.Constraints.Add "$C$11:$C$15", slvLessThanEqual, "$B$11:$B$15"
-    Problem.Constraints.Add "$D$9:$F$9", slvInt
+    With oProblem.Constraints
+        .AddBounded "$D$9:$F$9", 0, 800
+        .Add "$C$11:$C$15", slvLessThanEqual, "$B$11:$B$15"
+        .Add "$D$9:$F$9", slvInt
+    End With
     
-    Problem.Solver.Method = slvSimplex_LP
+    oProblem.Solver.Method = slvSimplex_LP
     
-    Problem.Solver.Options.MaxTimeNoImp = 2
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Options.MaxTimeNoImp = 2
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
 
-    Problem.SolveIt
+    oProblem.SolveIt
 
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("n1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("n1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("n1"), keepOnlyValid:=True
     End If
 End Sub
 

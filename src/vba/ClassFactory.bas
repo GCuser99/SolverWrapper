@@ -1,9 +1,9 @@
 Attribute VB_Name = "ClassFactory"
 Attribute VB_Description = "This class is used for object instantiation when referencing SolverWrapper externally from another VBA project"
-'%ModuleDescription "This class is used for object instantiation when referencing SolverWrapper externally from another VBA project"
+'@ModuleDescription "This class is used for object instantiation when referencing SolverWrapper externally from another VBA project"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.7
+' SolverWrapper v0.8
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '

@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to define the Decision variable, i.e. the ce
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.7
+' SolverWrapper v0.8
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '

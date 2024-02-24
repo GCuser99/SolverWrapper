@@ -15,36 +15,37 @@ Option Explicit
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
 'and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
 
+'Notes:
 'This is a non-linear problem and is best solved with slvGRG_Nonlinear
 Sub Solve_Engineering_Design()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Engineering Design")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "G15", slvTargetValue, 0.09
+    oProblem.Objective.Define "G15", slvTargetValue, 0.09
     
-    Problem.DecisionVars.Add "G12"
-    Problem.DecisionVars.Initialize 100
+    oProblem.DecisionVars.Add "G12"
+    oProblem.DecisionVars.Initialize 100
     
-    Problem.Solver.Method = slvGRG_Nonlinear
+    oProblem.Solver.Method = slvGRG_Nonlinear
     
-    Problem.Solver.Options.AssumeNonNeg = True
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Options.AssumeNonNeg = True
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
     
-    Problem.SolveIt
+    oProblem.SolveIt
     
     'leave no trace behind of SolverWrapper (hidden Solver names)
-    Problem.CleanUp
+    oProblem.CleanUp
     
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("o1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
     End If
 End Sub

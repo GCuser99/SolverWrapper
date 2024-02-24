@@ -15,62 +15,63 @@ Option Explicit
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
 'and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
 
+'Notes:
 'slvGRG_Nonlinear converges and is fast
 Sub Solve_Quick_Tour_Unconstrained()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Quick Tour")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "F15", slvMaximize
+    oProblem.Objective.Define "F15", slvMaximize
     
-    Problem.DecisionVars.Add "$B$11:$E$11"
-    Problem.DecisionVars.Initialize 10000#
+    oProblem.DecisionVars.Add "$B$11:$E$11"
+    oProblem.DecisionVars.Initialize 10000#
     
-    Problem.Solver.Method = slvGRG_Nonlinear
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Method = slvGRG_Nonlinear
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
 
-    Problem.SolveIt
+    oProblem.SolveIt
     
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("m1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("m1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("m1"), keepOnlyValid:=True
     End If
 End Sub
 
 Sub Solve_Quick_Tour_Constrained()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Quick Tour")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "F15", slvMaximize
+    oProblem.Objective.Define "F15", slvMaximize
     
-    Problem.DecisionVars.Add "$B$11:$E$11"
-    Problem.DecisionVars.Initialize 10000#
+    oProblem.DecisionVars.Add "$B$11:$E$11"
+    oProblem.DecisionVars.Initialize 10000#
     
-    Problem.Constraints.AddBounded "$B$11:$E$11", 0, 40000
-    Problem.Constraints.Add "$F$11", slvLessThanEqual, 40000
+    oProblem.Constraints.AddBounded "$B$11:$E$11", 0, 40000
+    oProblem.Constraints.Add "$F$11", slvLessThanEqual, 40000
     
-    Problem.Solver.Method = slvGRG_Nonlinear
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Method = slvGRG_Nonlinear
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
 
-    Problem.SolveIt
+    oProblem.SolveIt
     
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("m1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("m1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("m1"), keepOnlyValid:=True
     End If
 End Sub

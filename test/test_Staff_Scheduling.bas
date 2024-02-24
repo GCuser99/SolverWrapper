@@ -15,39 +15,42 @@ Option Explicit
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
 'and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
 
-'this is a linear problem so slvSimplex_LP conversges the fastest
+'Notes:
+'this is a linear problem so slvSimplex_LP converges the fastest
 'but this problem is interesting because there are many tied solutions that
 'you would not know without looking at all of solutions tried
 Sub Solve_Staff_Scheduling()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Staff Scheduling")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "D20", slvMinimize
+    oProblem.Objective.Define "D20", slvMinimize
     
-    Problem.DecisionVars.Add "D7:D13"
-    Problem.DecisionVars.Initialize 4
+    oProblem.DecisionVars.Add "D7:D13"
+    oProblem.DecisionVars.Initialize 4
     
-    Problem.Constraints.AddBounded "D7:D13", 0, 15
-    Problem.Constraints.Add "D7:D13", slvInt
-    Problem.Constraints.Add "F15:L15", slvGreaterThanEqual, "$F$17:$L$17"
+    With oProblem.Constraints
+        .AddBounded "D7:D13", 0, 15
+        .Add "D7:D13", slvInt
+        .Add "F15:L15", slvGreaterThanEqual, "$F$17:$L$17"
+    End With
 
-    Problem.Solver.Method = slvSimplex_LP
+    oProblem.Solver.Method = slvSimplex_LP
     
-    Problem.Solver.Options.RandomSeed = 7
-    Problem.Solver.Options.Precision = 0.000001
+    oProblem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Options.Precision = 0.000001
 
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
 
-    Problem.SolveIt
+    oProblem.SolveIt
     
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("s1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("s1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("s1"), keepOnlyValid:=True
     End If
 End Sub

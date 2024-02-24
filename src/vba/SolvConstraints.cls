@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set/manage Solver constraints."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.7
+' SolverWrapper v0.8
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -279,7 +279,7 @@ Private Sub ProcessConstraintParams(ByRef cellRef As Variant, ByVal relation As 
     
     Set ws = oSolverSheet
     
-    'check that Relation is in valid range
+    'check that relation is in valid range
     If relation < SlvRelation.[_First] Or relation > SlvRelation.[_Last] Then
         Err.Raise vbObjectError + 4001, , "Please specify a valid Relation between 1 and 6."
     End If

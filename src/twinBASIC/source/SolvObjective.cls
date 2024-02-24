@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to define the Solver Objective function."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.7
+' SolverWrapper v0.8
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -66,6 +66,10 @@ Attribute Define.VB_UserMemId = 0
         setCell = CellRefToString(setCell, ws)
     Else
         Err.Raise vbObjectError + 4001, , "Please specify a valid cell reference"
+    End If
+    
+    If ws.Range(setCell).Count > 1 Then
+        Err.Raise vbObjectError + 4001, , "Objective Cell must be a single cell on the active sheet"
     End If
 
     If goal < SlvGoalType.[_First] Or goal > SlvGoalType.[_Last] Then

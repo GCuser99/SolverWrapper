@@ -15,45 +15,48 @@ Option Explicit
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
 'and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
 
+'Notes:
 'This is a non-linear problem - use slvGRG_Nonlinear
 Sub Solve_Portfolio_of_Securities()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Portfolio of Securities")
     
     'initialize the problem by passing a reference to the worksheet of interest
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
     'define the objective cell to be optimized
-    Problem.Objective.Define "E18", slvMaximize
+    oProblem.Objective.Define "E18", slvMaximize
     
     'define and initialize the decision cell(s)
-    Problem.DecisionVars.Add "E10:E14"
-    Problem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
+    oProblem.DecisionVars.Add "E10:E14"
+    oProblem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
     
     'add some constraints
-    Problem.Constraints.AddBounded "E10:E14", 0#, 1#
-    Problem.Constraints.Add "E16", slvEqual, 1#
-    Problem.Constraints.Add "G18", slvLessThanEqual, 0.071
+    With oProblem.Constraints
+        .AddBounded "E10:E14", 0#, 1#
+        .Add "E16", slvEqual, 1#
+        .Add "G18", slvLessThanEqual, 0.071
+    End With
     
     'set the solver engine to use
-    Problem.Solver.Method = slvGRG_Nonlinear
+    oProblem.Solver.Method = slvGRG_Nonlinear
     
     'set some solver options
-    Problem.Solver.Options.AssumeNonNeg = True
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Options.AssumeNonNeg = True
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
 
     'solve the optimization problem
-    Problem.SolveIt
+    oProblem.SolveIt
     
     'save all trial solutions that passed the constraints to the worksheet
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("o2:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o2"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("o2"), keepOnlyValid:=True
     End If
 End Sub

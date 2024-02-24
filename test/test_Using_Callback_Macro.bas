@@ -17,40 +17,42 @@ Option Explicit
 
 'To use SolverWrapper callback feature, user must write their own callback function (see below)
 Sub Solve_Portfolio_of_Securities_with_Events()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Portfolio of Securities")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "E18", slvMaximize
+    oProblem.Objective.Define "E18", slvMaximize
     
-    Problem.DecisionVars.Add "E10:E14"
-    Problem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
+    oProblem.DecisionVars.Add "E10:E14"
+    oProblem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
     
-    Problem.Constraints.AddBounded "E10:E14", 0#, 1#
-    Problem.Constraints.Add "E16", slvEqual, 1
-    Problem.Constraints.Add "G18", slvLessThanEqual, 0.071
+    'add some constraints
+    With oProblem.Constraints
+        .AddBounded "E10:E14", 0#, 1#
+        .Add "E16", slvEqual, 1#
+        .Add "G18", slvLessThanEqual, 0.071
+    End With
     
-    Problem.Solver.Method = slvGRG_Nonlinear
+    oProblem.Solver.Method = slvGRG_Nonlinear
     
-    Problem.Solver.Options.AssumeNonNeg = False
-    Problem.Solver.Options.RandomSeed = 7
-    Problem.Solver.Options.StepThru = False
+    oProblem.Solver.Options.AssumeNonNeg = False
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.EnableEvents = False
-    Problem.Solver.UserCallbackMacroName = "ShowTrial"
+    oProblem.Solver.EnableEvents = False
+    oProblem.Solver.UserCallbackMacroName = "ShowTrial"
 
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
     
-    Problem.SolveIt
+    oProblem.SolveIt
     
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("o2:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o2")
+        oProblem.SaveSolutionsToRange ws.Range("o2")
     End If
 End Sub
 

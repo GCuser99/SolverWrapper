@@ -11,7 +11,7 @@ Attribute VB_Description = "This private class is used to communicate directly w
 '%ModuleDescription "This private class is used to communicate directly with DLL and is not exposed to User."
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.7
+' SolverWrapper v0.8
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -65,11 +65,9 @@ Public stopRestorePrevious As Boolean
 Public enableInternalEvents As Boolean
 Public enableUserDefinedCallback As Boolean
 
-'internal event that triggers chained public event in SolvProblem
+'internal events that triggers chained public event in SolvProblem
 Public Event ShowTrialInternal(ByVal reason As Long, ByVal trialNum As Long, cancel As Boolean)
-'internal event that triggers chained public event in SolvProblem
 Public Event BeforeSolveInternal(cancel As Boolean)
-'internal event that triggers chained public event in SolvProblem
 Public Event AfterSolveInternal(ByVal returnMsgCode As Long, ByVal trialNum As Long)
 'internal event that triggers chained public callback function in SolvProblem
 Public Event ShowTrialCallbackInternal(ByVal reason As Long, ByVal trialNum As Long, cancel As Boolean)

@@ -15,70 +15,75 @@ Option Explicit
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
 'and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
 
+'Notes:
 'this is a linear problem so slvSimplex_LP is faster
-'however, this problem has more than one solution - use slvGRG_Nonlinear for multiple solutions
+'however, this problem has more than one BEST solution - use slvGRG_Nonlinear to see multiple solutions
 Sub Solve_Shipping_Routes_Slower()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Shipping Routes")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "B20", slvMinimize
+    oProblem.Objective.Define "B20", slvMinimize
     
-    Problem.DecisionVars.Add "C8:G10"
-    Problem.DecisionVars.Initialize 60
+    oProblem.DecisionVars.Add "C8:G10"
+    oProblem.DecisionVars.Initialize 60
     
-    Problem.Constraints.AddBounded "$C$8:$G$10", 0, 250
-    Problem.Constraints.Add "$C$8:$G$10", slvInt
-    Problem.Constraints.Add "$B$8:$B$10", slvLessThanEqual, "$B$16:$B$18"
-    Problem.Constraints.Add "$C$12:$G$12", slvGreaterThanEqual, "$C$14:$G$14"
+    With oProblem.Constraints
+        .AddBounded "$C$8:$G$10", 0, 250
+        .Add "$C$8:$G$10", slvInt
+        .Add "$B$8:$B$10", slvLessThanEqual, "$B$16:$B$18"
+        .Add "$C$12:$G$12", slvGreaterThanEqual, "$C$14:$G$14"
+    End With
     
-    Problem.Solver.Method = slvGRG_Nonlinear
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Method = slvGRG_Nonlinear
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
 
-    Problem.SolveIt
+    oProblem.SolveIt
     
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("o1:ae10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
     End If
 End Sub
 
 Sub Solve_Shipping_Routes_Faster()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Shipping Routes")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "B20", slvMinimize
+    oProblem.Objective.Define "B20", slvMinimize
     
-    Problem.DecisionVars.Add "C8:G10"
-    Problem.DecisionVars.Initialize 60
+    oProblem.DecisionVars.Add "C8:G10"
+    oProblem.DecisionVars.Initialize 60
     
-    Problem.Constraints.AddBounded "$C$8:$G$10", 0, 250
-    Problem.Constraints.Add "$C$8:$G$10", slvInt
-    Problem.Constraints.Add "$B$8:$B$10", slvLessThanEqual, "$B$16:$B$18"
-    Problem.Constraints.Add "$C$12:$G$12", slvGreaterThanEqual, "$C$14:$G$14"
+    With oProblem.Constraints
+        .AddBounded "$C$8:$G$10", 0, 250
+        .Add "$C$8:$G$10", slvInt
+        .Add "$B$8:$B$10", slvLessThanEqual, "$B$16:$B$18"
+        .Add "$C$12:$G$12", slvGreaterThanEqual, "$C$14:$G$14"
+    End With
     
-    Problem.Solver.Method = slvSimplex_LP
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Method = slvSimplex_LP
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
 
-    Problem.SolveIt
+    oProblem.SolveIt
     
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("o1:ae10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
     End If
 End Sub

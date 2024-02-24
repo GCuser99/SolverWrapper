@@ -18,46 +18,50 @@ Option Explicit
 'To use SolverWrapper events, user must write their own event sink class (see example SolverEventSink class in test folder)
 'Then connect to that class as in below example. Be sure to set EnableEvents of the Solver class to True.
 Sub Solve_Portfolio_of_Securities_with_Events()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Portfolio of Securities")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "E18", slvMaximize
+    oProblem.Objective.Define "E18", slvMaximize
     
-    Problem.DecisionVars.Add "E10:E14"
-    Problem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
+    oProblem.DecisionVars.Add "E10:E14"
+    oProblem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
     
-    Problem.Constraints.AddBounded "E10:E14", 0#, 1#
-    Problem.Constraints.Add "E16", slvEqual, 1
-    Problem.Constraints.Add "G18", slvLessThanEqual, 0.071
+    'add some constraints
+    With oProblem.Constraints
+        .AddBounded "E10:E14", 0#, 1#
+        .Add "E16", slvEqual, 1#
+        .Add "G18", slvLessThanEqual, 0.071
+    End With
     
-    Problem.Solver.Method = slvGRG_Nonlinear
+    oProblem.Solver.Method = slvGRG_Nonlinear
     
-    Problem.Solver.Options.AssumeNonNeg = False
-    Problem.Solver.Options.RandomSeed = 7
-    Problem.Solver.Options.StepThru = False
-    Problem.Solver.Options.MaxTime = 1
+    With oProblem.Solver.Options
+        .AssumeNonNeg = False
+        .RandomSeed = 7
+        .MaxTime = 1
+    End With
     
     'must enable events to use this
-    Problem.Solver.EnableEvents = True
-    If Problem.Solver.EnableEvents Then
+    oProblem.Solver.EnableEvents = True
+    If oProblem.Solver.EnableEvents Then
         'connect-up events proccessing class
         Dim eventSink As SolverEventSink
         Set eventSink = New SolverEventSink
-        Set eventSink.Problem = Problem
+        Set eventSink.Problem = oProblem
     End If
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
     
-    Problem.SolveIt
+    oProblem.SolveIt
     
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("o2:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o2")
+        oProblem.SaveSolutionsToRange ws.Range("o2")
     End If
 End Sub

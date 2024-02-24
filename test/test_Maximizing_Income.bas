@@ -15,78 +15,82 @@ Option Explicit
 'Import this module into the sample workbook, set a reference to the SolverWrapper code library
 'and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
 
+'Notes:
 'this is a linear problem, hence slvSimplex_LP is best method
 'but slvGRG_Nonlinear is almost as fast and accurate
 Sub Solve_Maximizing_Income()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Maximizing Income")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "H8", slvMaximize
+    oProblem.Objective.Define "H8", slvMaximize
     
-    Problem.DecisionVars.Add "B14:G14", "B15:B16", "E15"
-    Problem.DecisionVars.Initialize 50000
+    oProblem.DecisionVars.Add "B14:G14", "B15:B16", "E15"
+    oProblem.DecisionVars.Initialize 50000
     
-    Problem.Constraints.Add "B14:G14", slvGreaterThanEqual, 0
-    Problem.Constraints.Add "B15:B16", slvGreaterThanEqual, 0
-    Problem.Constraints.Add "E15", slvGreaterThanEqual, 0
-    Problem.Constraints.Add "B18:H18", slvGreaterThanEqual, 100000
+    With oProblem.Constraints
+        .Add "B14:G14", slvGreaterThanEqual, 0
+        .Add "B15:B16", slvGreaterThanEqual, 0
+        .Add "E15", slvGreaterThanEqual, 0
+        .Add "B18:H18", slvGreaterThanEqual, 100000
+    End With
     
-    Problem.Solver.Method = slvSimplex_LP
+    oProblem.Solver.Method = slvSimplex_LP
     
-    Problem.Solver.Options.AssumeNonNeg = False
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Options.AssumeNonNeg = False
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
     
-    Problem.SolveIt
+    oProblem.SolveIt
     
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("o1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
     End If
 End Sub
 
 Sub Solve_Maximizing_Income_with_Optional_Constraint()
-    Dim Problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
     
-    Set Problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Maximizing Income")
     
-    Problem.Initialize ws
+    oProblem.Initialize ws
     
-    Problem.Objective.Define "H8", slvMaximize
+    oProblem.Objective.Define "H8", slvMaximize
     
-    Problem.DecisionVars.Add "B14:G14", "B15:B16", "E15"
-    Problem.DecisionVars.Initialize 50000
+    oProblem.DecisionVars.Add "B14:G14", "B15:B16", "E15"
+    oProblem.DecisionVars.Initialize 50000
     
-    Problem.Constraints.Add "B14:G14", slvGreaterThanEqual, 0
-    Problem.Constraints.Add "B15:B16", slvGreaterThanEqual, 0
-    Problem.Constraints.Add "E15", slvGreaterThanEqual, 0
-    Problem.Constraints.Add "B18:H18", slvGreaterThanEqual, 100000
+    With oProblem.Constraints
+        .Add "B14:G14", slvGreaterThanEqual, 0
+        .Add "B15:B16", slvGreaterThanEqual, 0
+        .Add "E15", slvGreaterThanEqual, 0
+        .Add "B18:H18", slvGreaterThanEqual, 100000
+        'add optional constraint that the average maturity of the investments
+        'held in month 1 should not be more 4 months
+        .Add "B20", slvEqual, 0
+    End With
     
-    'add optional constraint that the average maturity of the investments
-    'held in month 1 should not be more 4 months
-    Problem.Constraints.Add "B20", slvEqual, 0
+    oProblem.Solver.Method = slvSimplex_LP
     
-    Problem.Solver.Method = slvSimplex_LP
+    oProblem.Solver.Options.AssumeNonNeg = False
+    oProblem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.Options.AssumeNonNeg = False
-    Problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.SaveAllTrialSolutions = True
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    oProblem.SolveIt
     
-    Problem.SolveIt
-    
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("o1:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("o1"), keepOnlyValid:=True
     End If
 End Sub
