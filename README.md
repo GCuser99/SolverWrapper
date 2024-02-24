@@ -28,46 +28,46 @@ The following example automates solving the problem in SOLVSAMP.XLS on the "Port
 
 ```vba
 Sub Solve_Portfolio_of_Securities()
-    Dim Problem As SolvProblem
+    Dim problem As SolvProblem
     Dim ws As Worksheet
 
-    Set Problem = New SolvProblem
+    Set problem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Portfolio of Securities")
     
     'initialize the problem by passing a reference to the worksheet of interest
-    Problem.Initialize ws
+    problem.Initialize ws
     
     'define the objective cell to be optimized
-    Problem.Objective.Define "E18", slvMaximize
+    problem.Objective.Define "E18", slvMaximize
     
     'define and initialize the decision cell(s)
-    Problem.DecisionVars.Add "E10:E14"
-    Problem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
+    problem.DecisionVars.Add "E10:E14"
+    problem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
     
     'add some constraints
-    With Problem.Constraints
+    With problem.Constraints
         .AddBounded "E10:E14", 0#, 1#
         .Add "E16", slvEqual, 1#
         .Add "G18", slvLessThanEqual, 0.071
     End With
     
     'set the solver engine to use
-    Problem.Solver.Method = slvGRG_Nonlinear
+    problem.Solver.Method = slvGRG_Nonlinear
     
     'set some solver options
-    Problem.Solver.Options.AssumeNonNeg = True
-    Problem.Solver.Options.RandomSeed = 7
+    problem.Solver.Options.AssumeNonNeg = True
+    problem.Solver.Options.RandomSeed = 7
     
-    Problem.Solver.SaveAllTrialSolutions = True
+    problem.Solver.SaveAllTrialSolutions = True
 
     'solve the optimization problem
-    Problem.SolveIt
+    problem.SolveIt
     
     'save all trial solutions that passed the constraints to the worksheet
-    If Problem.Solver.SaveAllTrialSolutions Then
+    If problem.Solver.SaveAllTrialSolutions Then
         ws.Range("o2:az10000").ClearContents
-        Problem.SaveSolutionsToRange ws.Range("o2"), keepOnlyValid:=True
+        problem.SaveSolutionsToRange ws.Range("o2"), keepOnlyValid:=True
     End If
 End Sub
 ```
