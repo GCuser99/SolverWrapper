@@ -28,46 +28,46 @@ The following example automates solving the problem in SOLVSAMP.XLS on the "Port
 
 ```vba
 Sub Solve_Portfolio_of_Securities()
-    Dim problem As SolvProblem
+    Dim oProblem As SolvProblem
     Dim ws As Worksheet
 
-    Set problem = New SolvProblem
+    Set oProblem = New SolvProblem
     
     Set ws = ThisWorkbook.Worksheets("Portfolio of Securities")
     
     'initialize the problem by passing a reference to the worksheet of interest
-    problem.Initialize ws
+    oProblem.Initialize ws
     
     'define the objective cell to be optimized
-    problem.Objective.Define "E18", slvMaximize
+    oProblem.Objective.Define "E18", slvMaximize
     
     'define and initialize the decision cell(s)
-    problem.DecisionVars.Add "E10:E14"
-    problem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
+    oProblem.DecisionVars.Add "E10:E14"
+    oProblem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
     
     'add some constraints
-    With problem.Constraints
+    With oProblem.Constraints
         .AddBounded "E10:E14", 0#, 1#
         .Add "E16", slvEqual, 1#
         .Add "G18", slvLessThanEqual, 0.071
     End With
     
     'set the solver engine to use
-    problem.Solver.Method = slvGRG_Nonlinear
+    oProblem.Solver.Method = slvGRG_Nonlinear
     
     'set some solver options
-    problem.Solver.Options.AssumeNonNeg = True
-    problem.Solver.Options.RandomSeed = 7
+    oProblem.Solver.Options.AssumeNonNeg = True
+    oProblem.Solver.Options.RandomSeed = 7
     
-    problem.Solver.SaveAllTrialSolutions = True
+    oProblem.Solver.SaveAllTrialSolutions = True
 
     'solve the optimization problem
-    problem.SolveIt
+    oProblem.SolveIt
     
     'save all trial solutions that passed the constraints to the worksheet
-    If problem.Solver.SaveAllTrialSolutions Then
+    If oProblem.Solver.SaveAllTrialSolutions Then
         ws.Range("o2:az10000").ClearContents
-        problem.SaveSolutionsToRange ws.Range("o2"), keepOnlyValid:=True
+        oProblem.SaveSolutionsToRange ws.Range("o2"), keepOnlyValid:=True
     End If
 End Sub
 ```
