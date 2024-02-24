@@ -57,8 +57,7 @@ Sub Solve_Portfolio_of_Securities()
     'set the solver engine to use
     oProblem.Solver.Method = slvGRG_Nonlinear
     
-    'set some solver options
-    oProblem.Solver.Options.AssumeNonNeg = True
+    'set solver option
     oProblem.Solver.Options.RandomSeed = 7
     
     oProblem.Solver.SaveAllTrialSolutions = True
