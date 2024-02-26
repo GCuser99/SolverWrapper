@@ -42,7 +42,6 @@ Sub Solve_Portfolio_of_Securities_with_Events()
     oProblem.Solver.Method = slvGRG_Nonlinear
     
     With oProblem.Solver.Options
-        .AssumeNonNeg = False
         .RandomSeed = 7
         .MaxTime = 1
     End With

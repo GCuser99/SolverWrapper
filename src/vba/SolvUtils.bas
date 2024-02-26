@@ -1,7 +1,7 @@
 Attribute VB_Name = "SolvUtils"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.8
+' SolverWrapper v0.9
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -464,7 +464,7 @@ Public Function ReturnSolverMsg(ByVal solverResult As Long) As String
         Case 7
             ReturnSolverMsg = "The linearity conditions required by this LP Solver are not satisfied (7)."
         Case 8
-            ReturnSolverMsg = "The problem is too large for Solver to handle (8)."
+            ReturnSolverMsg = "The problem is too large for Solver to handle - limited to 200 Decision cells and 100 non-Decision cell constraints (8)."
         Case 9
             ReturnSolverMsg = "Solver encountered an error value in the objective cell or a constraint cell (9)."
         Case 10

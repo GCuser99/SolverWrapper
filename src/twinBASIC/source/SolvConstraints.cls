@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set/manage Solver constraints."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.8
+' SolverWrapper v0.9
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -60,10 +60,6 @@ Private oSolverSheet As Worksheet
 '%Description("Adds a constraint to the current problem.")
 Public Sub Add(ByVal cellRef As Variant, ByVal relation As SlvRelation, Optional ByVal formulaText As Variant)
 Attribute Add.VB_Description = "Adds a constraint to the current problem."
-    If Me.Count + 1 > 100 Then
-        Err.Raise vbObjectError + 4001, , "Number of Constraints  must be less than or equal to 100"
-    End If
-    
     Dim ws As Worksheet
     Dim solver_num As Long
     
@@ -291,13 +287,13 @@ Private Sub ProcessConstraintParams(ByRef cellRef As Variant, ByVal relation As 
         Err.Raise vbObjectError + 4001, , "Please specify a valid cell reference"
     End If
     
-    'could do this check in SolveIt right before calling dll - that way user can do things in any order
-    'check that lhs refer(s) to the decision variables
     If relation > 3 Then
+        'LHS MUST refer to the decision variables
+        'and thus dose not count against the 100-cell constraint limit
         If Not NameExists("solver_adj", ws) Then
             Err.Raise vbObjectError + 4001, , "Cannot set constraint relations slvInt, slvBin, or slvAllDif, until after the decision variables are defined."
         End If
-        If Not IsRangeInRange(ws.Range(cellRef), ws.Range(ws.Names("solver_adj").Name)) Then
+        If Not IsRangeInRange(ws.Range(cellRef), ws.Names("solver_adj").RefersToRange) Then
             'the int, bin, and alldifferent constraints can only be applied to decision vars
             Err.Raise vbObjectError + 4001, , "The selected Relation only applies to contraints on decision variables."
         End If

@@ -40,7 +40,6 @@ Sub Solve_Portfolio_of_Securities_with_Events()
     
     oProblem.Solver.Method = slvGRG_Nonlinear
     
-    oProblem.Solver.Options.AssumeNonNeg = False
     oProblem.Solver.Options.RandomSeed = 7
     
     oProblem.Solver.EnableEvents = False

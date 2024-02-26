@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to define the Decision variable, i.e. the ce
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.8
+' SolverWrapper v0.9
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -53,9 +53,9 @@ Private oSolverSheet As Worksheet
 ' ==========================================================================
 
 '@DefaultMember
-'%Description("Adds a cell or range of cells that will be changed to achieve desired result in the target (objective) cell.")
+'%Description("Adds a cell(s) range that will be changed to achieve the desired result in the Objective cell - limited to 200 cells.")
 Public Sub Add(ParamArray cellRefs() As Variant)
-Attribute Add.VB_Description = "Adds a cell or range of cells that will be changed to achieve desired result in the target (objective) cell."
+Attribute Add.VB_Description = "Adds a cell(s) range that will be changed to achieve the desired result in the Objective cell - limited to 200 cells."
 Attribute Add.VB_UserMemId = 0
     Dim rCellRef As Range
     'initialize rCellRef - there can be more than one call to Add so check to see if its been called before...
@@ -67,8 +67,9 @@ Attribute Add.VB_UserMemId = 0
     End If
     
     If Me.Count + rCellRef.Count > 200 Then
-        Err.Raise vbObjectError + 4001, , "Number of Decision Variables must be less than or equal to 200"
+        Err.Raise vbObjectError + 4001, , "Number of Decision Variable cells must be less than or equal to 200"
     End If
+    
     ProcessDecisionVars rCellRef
 End Sub
 
