@@ -43,7 +43,7 @@ Sub Solve_Portfolio_of_Securities()
     'define the objective cell to be optimized
     oProblem.Objective.Define "E18", slvMaximize
     
-    'define and initialize the decision cell(s)
+    'add and initialize the decision cell(s)
     oProblem.DecisionVars.Add "E10:E14"
     oProblem.DecisionVars.Initialize 0.2, 0.2, 0.2, 0.2, 0.2
     
