@@ -75,7 +75,7 @@ End Sub
 The image below shows the result of running the above optimization procedure.
 <img src="https://github.com/GCuser99/SolverWrapper/blob/main/dev/images/portfolio_of_securities.png" alt="EngineeringDesign" width=100% height=100%>
 
-## Requirements:
+## Requirements
 
 - 64-bit MS Windows
 - MS Office 2010 or later, 32/64-bit
