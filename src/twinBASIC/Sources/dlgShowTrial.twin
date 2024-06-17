@@ -1,6 +1,6 @@
-[ Description ("") ]
-[ FormDesignerId ("9D3B2FFD-0A92-4CE5-BC0E-5D080F151804") ]
-[ PredeclaredId ]
+[Description("")]
+[FormDesignerId("9D3B2FFD-0A92-4CE5-BC0E-5D080F151804")]
+[PredeclaredId]
 Private Class dlgShowTrial
 
     Private showTrialAction As SlvShowTrial
@@ -14,33 +14,34 @@ Private Class dlgShowTrial
         GetStopRestorePrevious = stopRestorePrevious
     End Function
 
-	Private Sub New()
+    Private Sub New()
         Me.Caption = "Show Trial Solution"
         Me.cmdContinue.Caption = "Continue"
         Me.cmdStopAndRestore.Caption = "Stop and Restore"
         Me.cmdStopAndKeep.Caption = "Stop and Keep"
-	End Sub
+        Set Me.Icon = LoadResPicture("solve_64.ico", vbResIcon)
+    End Sub
 	
-	Private Sub cmdContinue_Click()
+    Private Sub cmdContinue_Click()
         showTrialAction = SlvShowTrial.slvContinue
         stopRestorePrevious = False
         Me.Hide
-	End Sub
+    End Sub
 	
-	Private Sub cmdStopAndKeep_Click()
+    Private Sub cmdStopAndKeep_Click()
         showTrialAction = SlvShowTrial.slvStop
         stopRestorePrevious = False
         Me.Hide
-	End Sub
+    End Sub
 	
-	Private Sub cmdStopAndRestore_Click()
+    Private Sub cmdStopAndRestore_Click()
         showTrialAction = SlvShowTrial.slvStop
         stopRestorePrevious = True
         Me.Hide
-	End Sub
+    End Sub
 	
-	Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-        If UnloadMode = 0 Then cmdContinue_Click()
-	End Sub
+    Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+        If UnloadMode = vbFormControlMenu Then cmdContinue_Click()
+    End Sub
 
 End Class

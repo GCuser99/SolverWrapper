@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to define the Solver Objective function."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.9
+' SolverWrapper v1.0
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -76,13 +76,9 @@ Attribute Define.VB_UserMemId = 0
         Err.Raise vbObjectError + 4001, , "Please specify an objective Goal value between 1 and 3."
     End If
         
-    If IsMissing(valueOf) Or IsError(valueOf) Then
-        valueOf = 0
-    End If
+    If IsMissing(valueOf) Or IsError(valueOf) Then valueOf = 0
         
-    If goal = 3 And Not IsNumeric(valueOf) Then
-        Err.Raise vbObjectError + 4001, , "Please specify a vaid ValueOf value."
-    End If
+    If goal = 3 And Not IsNumeric(valueOf) Then Err.Raise vbObjectError + 4001, , "Please specify a vaid ValueOf value."
 
     With ws.Names
         .Add Name:="solver_opt", RefersTo:="=" & ws.Range(setCell).Address, Visible:=nameVisible

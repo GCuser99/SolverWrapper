@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set/manage Solver constraints."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.9
+' SolverWrapper v1.0
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -101,11 +101,7 @@ End Sub
 '@Description("Gets the total number of constraints set for the current problem.")
 Public Property Get Count() As Long
 Attribute Count.VB_Description = "Gets the total number of constraints set for the current problem."
-    If NameExists("solver_num", oSolverSheet) Then
-        Count = NameToLong("solver_num", oSolverSheet)
-    Else
-        Count = 0
-    End If
+    If NameExists("solver_num", oSolverSheet) Then Count = NameToLong("solver_num", oSolverSheet)
 End Property
 
 '@Description("Deletes a constraint from the current problem.")

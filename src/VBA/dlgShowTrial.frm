@@ -1,9 +1,9 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} dlgShowTrial 
    Caption         =   "Show Trial Solution"
-   ClientHeight    =   1755
-   ClientLeft      =   45
-   ClientTop       =   345
+   ClientHeight    =   1752
+   ClientLeft      =   48
+   ClientTop       =   348
    ClientWidth     =   5700
    OleObjectBlob   =   "dlgShowTrial.frx":0000
    StartUpPosition =   1  'CenterOwner
@@ -48,11 +48,12 @@ End Sub
 Private Sub UserForm_Initialize()
     Me.Caption = "Show Trial Solution"
     Me.cmdContinue.Caption = "Continue"
-    Me.cmdContinue.Accelerator = "C"
     Me.cmdStopAndRestore.Caption = "Stop and Restore"
-    Me.cmdStopAndRestore.Accelerator = "R"
     Me.cmdStopAndKeep.Caption = "Stop and Keep"
+    Me.cmdContinue.Accelerator = "C"
+    Me.cmdStopAndRestore.Accelerator = "R"
     Me.cmdStopAndKeep.Accelerator = "K"
+    #End If
 End Sub
 
 Private Sub UserForm_QueryClose(cancel As Integer, CloseMode As Integer)

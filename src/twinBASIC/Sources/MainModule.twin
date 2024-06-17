@@ -1,0 +1,9 @@
+
+Private Module MainModule
+
+    Sub testdialog()
+        dlgShowTrial.Show(vbModal)
+        dlgShowTrial.Close
+        Set dlgShowTrial = Nothing
+    End Sub
+End Module

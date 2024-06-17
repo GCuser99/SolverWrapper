@@ -12,7 +12,7 @@ Attribute VB_Description = "The main class to define the Solver problem, includi
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.9
+' SolverWrapper v1.0
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -196,32 +196,28 @@ Attribute Solver.VB_Description = "Exposes the Solver object."
 End Function
 
 '@Description("Initializes the problem - this must be called before all other methods.")
-Public Sub Initialize(ws As Worksheet, Optional ByVal resetSolver As Boolean = True)
+Public Sub Initialize(SolverSheet As Worksheet, Optional ByVal resetSolver As Boolean = True)
 Attribute Initialize.VB_Description = "Initializes the problem - this must be called before all other methods."
-    Set oSolverSheet = ws
+    Set oSolverSheet = SolverSheet
     
-    #If TWINBASIC Then
-    Set Application = ws.Application
-    #End If
+    SolverSheet.Activate
     
-    ws.Activate
-    
-    If ws.ProtectContents Then
+    If SolverSheet.ProtectContents Then
         Err.Raise vbObjectError + 4001, , "Problem cannot be initilialized because the active Worksheet is protected."
     End If
     
     InitializeSolverNames
     
     If resetSolver Then
-        DeleteSolverNames ws:=ws, deleteModel:=True, deleteSolverOptions:=True, deleteStatusBarNames:=True
-        InitSolver ws:=ws, initModel:=True, initSolverOptions:=True, initStatusBarNames:=True
+        DeleteSolverNames ws:=SolverSheet, deleteModel:=True, deleteSolverOptions:=True, deleteStatusBarNames:=True
+        InitSolver ws:=SolverSheet, initModel:=True, initSolverOptions:=True, initStatusBarNames:=True
     End If
     
-    oObjective.SetSolverSheet ws
-    oDecisionVars.SetSolverSheet ws
-    oSolver.SetSolverSheet ws
-    oConstraints.SetSolverSheet ws
-    oSolver.Options.SetSolverSheet ws
+    oObjective.SetSolverSheet SolverSheet
+    oDecisionVars.SetSolverSheet SolverSheet
+    oSolver.SetSolverSheet SolverSheet
+    oConstraints.SetSolverSheet SolverSheet
+    oSolver.Options.SetSolverSheet SolverSheet
 End Sub
 
 '@Description("Solves the currently defined problem. Returns the Solver result code.")
@@ -334,14 +330,14 @@ Private Sub InitializeSolverNames()
         .Add "solver_cvg" 'convergence 0.0001
         .Add "solver_drv" 'derivatives (1 - forward, 2 - central)
         .Add "solver_est" 'Estimates (tangent-1, 2-quadratic)
-        .Add "solver_itr" 'solving limit iterations MAXLONG
+        .Add "solver_itr" 'solving limit iterations MAXVALUE
         '.Add "solver_lin" 'assume linear problem? (1-yes, 2-no) no longer applies
-        .Add "solver_mip" 'solving limits max subproblems MAXLONG
+        .Add "solver_mip" 'solving limits max subproblems MAXVALUE
         .Add "solver_mni" 'max time wo improve in secs (30)
         .Add "solver_mrt" 'mutation rate (.075)
         .Add "solver_msl" 'multistart (1-no, 2-yes)
         .Add "solver_neg" 'make unconstrained vars non neg (1 -yes, 2 - no)
-        .Add "solver_nod" 'solving limits max feasible solutions MAXLONG
+        .Add "solver_nod" 'solving limits max feasible solutions MAXVALUE
         .Add "solver_nwt" '1
         .Add "solver_pre" 'constraint prec 0.000001
         .Add "solver_rbv" 'require bounds on vars (1-yes, 2-no)
@@ -350,7 +346,7 @@ Private Sub InitializeSolverNames()
         .Add "solver_scl" 'auto scale (0,1)
         .Add "solver_sho" 'show inter results (1-yes, 2-no)
         .Add "solver_ssz" 'multistart sub problem size 100
-        .Add "solver_tim" 'solving limit time MAXLONG
+        .Add "solver_tim" 'solving limit time MAXVALUE
         .Add "solver_tol" 'integer optimality .01
 
         'workbook-level names for status bar messaging
@@ -379,7 +375,4 @@ Private Sub Class_Terminate()
     Set oSolver = Nothing
     Set oSolvDLL = Nothing
     Set oSolverSheet = Nothing
-    #If TWINBASIC Then
-    Set Application = Nothing
-    #End If
 End Sub

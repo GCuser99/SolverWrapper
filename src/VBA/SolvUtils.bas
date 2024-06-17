@@ -1,7 +1,7 @@
 Attribute VB_Name = "SolvUtils"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.9
+' SolverWrapper v1.0
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -37,13 +37,9 @@ Option Private Module
 Option Explicit
 
 'used to denote "infinite" for several of the solver option parameters such as MaxIterations and MaxTime
-Public Const MAXLONG As Long = 2147483647#
+Public Const MAXVALUE As Long = &H7FFFFFFF
 Public Const nameVisible = False 'True to aid debugging
 Public solverNames As Collection
-
-#If TWINBASIC Then
-Public Application As Excel.Application
-#End If
 
 ' ==========================================================================
 ' Public members
@@ -88,18 +84,6 @@ Public Function CellRefToString(ByVal cellRef As Variant, Optional ws As Workshe
     CellRefToString = tmp
 End Function
 
-#If TWINBASIC Then
-Public Function NameExists(ByVal stringName As String, Optional ws As Worksheet) As Boolean
-    Dim errTest As String
-    If ws Is Nothing Then Set ws = Application.ActiveSheet
-    On Error GoTo EH
-    errTest = ws.Names.Item(stringName).value
-    NameExists = True
-    Exit Function
-EH:
-    NameExists = False
-End Function
-#Else
 'As of tB v423 - this does not work after Reset in an event procedure - keep in VBA as a reminder
 Public Function NameExists(ByVal stringName As String, Optional ws As Worksheet) As Boolean
     Dim errTest As String
@@ -108,7 +92,6 @@ Public Function NameExists(ByVal stringName As String, Optional ws As Worksheet)
     errTest = ws.Names(stringName).value
     NameExists = (Err.number = 0)
 End Function
-#End If
 
 Public Sub DeleteName(ByVal stringName As String, Optional ws As Worksheet)
     If ws Is Nothing Then Set ws = Application.ActiveSheet
@@ -141,13 +124,13 @@ Public Sub InitSolver(Optional ws As Worksheet, Optional ByVal initModel As Bool
             .Add "solver_cvg", 0.0001, nameVisible
             .Add "solver_drv", slvForward, nameVisible
             .Add "solver_est", slvTangent, nameVisible
-            .Add "solver_itr", MAXLONG, nameVisible
-            .Add "solver_mip", MAXLONG, nameVisible
+            .Add "solver_itr", MAXVALUE, nameVisible
+            .Add "solver_mip", MAXVALUE, nameVisible
             .Add "solver_mni", 30, nameVisible
             .Add "solver_mrt", 0.075, nameVisible
             .Add "solver_msl", 2, nameVisible
             .Add "solver_neg", 1, nameVisible
-            .Add "solver_nod", MAXLONG, nameVisible
+            .Add "solver_nod", MAXVALUE, nameVisible
             .Add "solver_nwt", slvNewton, nameVisible
             .Add "solver_pre", 0.000001, nameVisible
             .Add "solver_rbv", 1, nameVisible
@@ -156,7 +139,7 @@ Public Sub InitSolver(Optional ws As Worksheet, Optional ByVal initModel As Bool
             .Add "solver_scl", 1, nameVisible
             .Add "solver_sho", 2, nameVisible
             .Add "solver_ssz", 100, nameVisible
-            .Add "solver_tim", MAXLONG, nameVisible
+            .Add "solver_tim", MAXVALUE, nameVisible
             .Add "solver_tol", 0.01, nameVisible
         End With
     End If
@@ -247,11 +230,7 @@ End Function
 Public Function CellRefHasOneArea(ByVal thecells As Variant, Optional ws As Worksheet) As Boolean
     If ws Is Nothing Then Set ws = Application.ActiveSheet
     On Error Resume Next
-    If ws.Range(thecells).Areas.Count > 1 Then
-       CellRefHasOneArea = False
-    Else
-       CellRefHasOneArea = True
-    End If
+    CellRefHasOneArea = (ws.Range(thecells).Areas.Count <= 1)
     On Error GoTo 0
 End Function
 
@@ -302,23 +281,19 @@ Public Function IsRangeInRange(testRange As Range, inRange As Range) As Boolean
     IsRangeInRange = (testRange.Count = r.Count)
 End Function
 
-Public Function Max(ParamArray numberList() As Variant) As Double
+Public Function Max(ParamArray numberList() As Variant) As Variant
     Dim i As Long
     Max = numberList(LBound(numberList))
     For i = LBound(numberList) + 1 To UBound(numberList)
-        If numberList(i) > Max Then
-            Max = numberList(i)
-        End If
+        If numberList(i) > Max Then Max = numberList(i)
     Next i
 End Function
 
-Public Function Min(ParamArray numberList() As Variant) As Double
+Public Function Min(ParamArray numberList() As Variant) As Variant
     Dim i As Long
     Min = numberList(LBound(numberList))
     For i = LBound(numberList) + 1 To UBound(numberList)
-        If numberList(i) < Min Then
-            Min = numberList(i)
-        End If
+        If numberList(i) < Min Then Min = numberList(i)
     Next i
 End Function
 
@@ -777,9 +752,7 @@ End Function
 
 'determines if name refers to a range or a value
 Private Function IsNameRange(n As Name) As Boolean
-    Dim r As Range
-    IsNameRange = False
-    If Not NameToRange(n) Is Nothing Then IsNameRange = True
+    IsNameRange = (Not NameToRange(n) Is Nothing)
 End Function
 
 Private Function UnionCP(ParamArray ranges() As Variant) As Range
@@ -811,15 +784,11 @@ Private Function ProperUnion(ParamArray ranges() As Variant) As Range
     Dim n As Long
     Dim r As Range
     
-    If Not ranges(LBound(ranges)) Is Nothing Then
-        Set resR = ranges(LBound(ranges))
-    End If
+    If Not ranges(LBound(ranges)) Is Nothing Then Set resR = ranges(LBound(ranges))
     For n = LBound(ranges) + 1 To UBound(ranges)
         If Not ranges(n) Is Nothing Then
             For Each r In ranges(n).Cells
-                If Application.Intersect(resR, r) Is Nothing Then
-                    Set resR = UnionCP(resR, r)
-                End If
+                If Application.Intersect(resR, r) Is Nothing Then Set resR = UnionCP(resR, r)
             Next r
         End If
     Next n

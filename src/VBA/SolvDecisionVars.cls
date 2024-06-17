@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to define the Decision variable, i.e. the ce
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.9
+' SolverWrapper v1.0
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -112,21 +112,13 @@ End Sub
 '@Description("Gets the total number of Decision variables.")
 Public Property Get Count() As Long
 Attribute Count.VB_Description = "Gets the total number of Decision variables."
-    If NameExists("solver_adj", oSolverSheet) Then
-        Count = oSolverSheet.Names("solver_adj").RefersToRange().Count
-    Else
-        Count = 0
-    End If
+    If NameExists("solver_adj", oSolverSheet) Then Count = oSolverSheet.Names("solver_adj").RefersToRange().Count
 End Property
 
 '@Description("Gets the Decision variable cell range.")
 Public Function CellRange() As Range
 Attribute CellRange.VB_Description = "Gets the Decision variable cell range."
-    If NameExists("solver_adj", oSolverSheet) Then
-        Set CellRange = oSolverSheet.Names("solver_adj").RefersToRange
-    Else
-        Set CellRange = Nothing
-    End If
+    If NameExists("solver_adj", oSolverSheet) Then Set CellRange = oSolverSheet.Names("solver_adj").RefersToRange
 End Function
 
 ' ==========================================================================
@@ -146,9 +138,7 @@ Private Sub ProcessDecisionVars(ByVal byChange As Variant)
     End If
     
     On Error Resume Next
-    If Not ws.Range(byChange).Count > 0 Then
-        Exit Sub
-    End If
+    If Not ws.Range(byChange).Count > 0 Then Exit Sub
     On Error GoTo 0
     
     ws.Names.Add Name:="solver_adj", RefersTo:="=" & ws.Range(byChange).Address, Visible:=nameVisible

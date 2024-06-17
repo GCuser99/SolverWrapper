@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set Solver Options."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v0.9
+' SolverWrapper v1.0
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -66,7 +66,7 @@ Attribute MaxTime.VB_Description = "The maximum amount of time (in seconds) Solv
         If val <> 0 Then
            .Add Name:="solver_tim", RefersTo:=CDbl(val), Visible:=nameVisible
         Else
-           .Add Name:="solver_tim", RefersTo:=MAXLONG, Visible:=nameVisible
+           .Add Name:="solver_tim", RefersTo:=MAXVALUE, Visible:=nameVisible
         End If
     End With
 End Property
@@ -82,7 +82,7 @@ Attribute MaxIterations.VB_Description = "The maximum number of iterations Solve
         If MaxIterations <> 0 Then
             .Add Name:="solver_itr", RefersTo:=CDbl(val), Visible:=nameVisible
         Else
-            .Add Name:="solver_itr", RefersTo:=MAXLONG, Visible:=nameVisible
+            .Add Name:="solver_itr", RefersTo:=MAXVALUE, Visible:=nameVisible
         End If
     End With
 End Property
@@ -287,7 +287,7 @@ Attribute MaxSubproblems.VB_Description = "The maximum number of subproblems Sol
         If val <> 0 Then
             .Add Name:="solver_nod", RefersToLocal:=val, Visible:=nameVisible
         Else
-            .Add Name:="solver_nod", RefersToLocal:=MAXLONG, Visible:=nameVisible
+            .Add Name:="solver_nod", RefersToLocal:=MAXVALUE, Visible:=nameVisible
         End If
     End With
 End Property
@@ -303,7 +303,7 @@ Attribute MaxIntegerSols.VB_Description = "The maximum number of feasible (or in
         If val <> 0 Then
            .Add Name:="solver_mip", RefersToLocal:=val, Visible:=nameVisible
         Else
-           .Add Name:="solver_mip", RefersToLocal:=MAXLONG, Visible:=nameVisible
+           .Add Name:="solver_mip", RefersToLocal:=MAXVALUE, Visible:=nameVisible
         End If
     End With
 End Property
