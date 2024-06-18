@@ -16,7 +16,7 @@
 
 # twinBASIC code (twin, tbform) - Prevent LF normalization
 *.[tT][wW][iI][nN] -text diff linguist-language=VBA
-*.[tT][bB][fF][oO][rR][mM] -text diff
+*.[tT][bB][fF][oO][rR][mM] -text diff linguist-language=JSON
 
 # twinBASIC Resources (json, xml) - Prevent LF normalization
 *.[jJ][sS][oO][nN] -text diff
