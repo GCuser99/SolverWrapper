@@ -14,15 +14,18 @@
 # VBS extensions - Prevent LF normalization
 *.[vV][bB][sS] -text diff linguist-language=VBScript
 
-# twinBASIC extensions  - Prevent LF normalization
+# twinBASIC extensions (twin, tbform) - Prevent LF normalization
 *.[tT][wW][iI][nN] -text diff linguist-language=VBA
 *.[tT][bB][fF][oO][rR][mM] -text diff
-*.[jJ][sS][oO][nN] -text diff
 
-# twinBASIC extensions  - Mark as binary
+# twinBASIC Resource extensions (json, xml) - Prevent LF normalization
+*.[jJ][sS][oO][nN] -text diff
+*.[xX][mM][lL] -text diff
+
+# twinBASIC Project extension (twinproject)  - Mark as binary
 *.[tT][wW][iI][nN][pP][rR][oO][jJ]  binary
 
-# Inno Setup extension  - Prevent LF normalization
+# Inno Setup extension (iss)  - Prevent LF normalization
 *.[iI][sS][sS] -text diff
 
 # ini file extension  - Prevent LF normalization
@@ -35,7 +38,7 @@
 # Access documents (accdb)
 *.[aA][cC][cC][dD][bB] binary
 
-# Word documents  (rtf)
+# Word documents (rtf)
 *.[rR][tT][fF] diff=astextplain
 
 # Images            
