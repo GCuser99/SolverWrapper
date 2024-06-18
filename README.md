@@ -76,7 +76,7 @@ The image below shows the result of running the above optimization procedure.
 <img src="https://github.com/GCuser99/SolverWrapper/blob/main/dev/images/portfolio_of_securities.png" alt="EngineeringDesign" width=100% height=100%>
 
 The SolverWrapper's ActiveX DLL Object Model in VBA's Object Browser:
-<img src="https://github.com/GCuser99/SolverWrapper/blob/main/dev/images/object_browser_view.png" alt="ObjectBrowser" width=60% height=60%>
+<img src="https://github.com/GCuser99/SolverWrapper/blob/main/dev/images/object_browser_view.png" alt="ObjectBrowser" width=65% height=65%>
 
 ## Requirements
 

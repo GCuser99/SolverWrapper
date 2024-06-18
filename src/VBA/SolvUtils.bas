@@ -66,10 +66,14 @@ Public Function CellRefToRange(ByVal cellRef As Variant, Optional ws As Workshee
             Set tmp = ProperUnion(tmp, CellRefToRange(cellRef(i), ws))
         Next i
     Else
+        On Error GoTo EH
         Set tmp = ws.Range(cellRef)
     End If
     
     Set CellRefToRange = RemoveRangeOverlap(tmp)
+    Exit Function
+EH:
+    Err.Raise 1001, , "Error in CellRefToRange: """ & cellRef & """ is not a valid Cell Reference"
 End Function
 
 Public Function CellRefToString(ByVal cellRef As Variant, Optional ws As Worksheet) As String

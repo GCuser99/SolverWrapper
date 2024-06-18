@@ -101,9 +101,9 @@ Public Function RunSolver() As Long
     Dim returnMsgCode As Integer
     Dim dllFolderPath As String
     Dim cancel As Boolean
+    Const pathBufSize = 1024
     Dim saveDllFolderPathBuf As String * pathBufSize
     Dim saveDllFolderPath As String
-    Const pathBufSize = 1024
     
     saveSolverShow = SolverShow
     
