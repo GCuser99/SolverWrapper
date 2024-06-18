@@ -53,7 +53,6 @@ Private Sub UserForm_Initialize()
     Me.cmdContinue.Accelerator = "C"
     Me.cmdStopAndRestore.Accelerator = "R"
     Me.cmdStopAndKeep.Accelerator = "K"
-    #End If
 End Sub
 
 Private Sub UserForm_QueryClose(cancel As Integer, CloseMode As Integer)
