@@ -5,7 +5,7 @@
 Public Class SolvProblem
 
     ' ==========================================================================
-    ' SolverWrapper v1.0
+    ' SolverWrapper v1.1
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -178,11 +178,11 @@ Public Class SolvProblem
     End Property
 
     [Description("Exposes the Solver object.")]
-    Public Function Solver() As SolvSolver
+    Public Property Get Solver() As SolvSolver
         If Not IsInitialized Then Err.Raise vbObjectError + 4001, , "Must call Initialize method first"
         Set Solver = oSolver
-    End Function
-
+    End Property
+    
     [Description("Initializes the problem - this must be called before all other methods.")]
     Public Sub Initialize(SolverSheet As Worksheet, Optional ByVal resetSolver As Boolean = True)
         Set oSolverSheet = SolverSheet

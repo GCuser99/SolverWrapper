@@ -1,11 +1,11 @@
 [COMCreatable(False)]
-[ Description ("A class to define the Solver Objective function.") ]
-[ PredeclaredId (False) ]
-[ Hidden (False) ]
+[Description("A class to define the Solver Objective function.")]
+[PredeclaredId(False)]
+[Hidden(False)]
 Public Class SolvObjective
 
     ' ==========================================================================
-    ' SolverWrapper v1.0
+    ' SolverWrapper v1.1
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -45,8 +45,8 @@ Public Class SolvObjective
     ' Public members
     ' ==========================================================================
 
-    [ DefaultMember ]
-    [ Description ("Sets the Objective (Target) cell and parameters.") ]
+    [DefaultMember]
+    [Description("Sets the Objective (Target) cell and parameters.")]
     Public Sub Define(ByVal setCell As Variant, ByVal goal As SlvGoalType, Optional ByVal valueOf As Double)
         'This procedure processes the objective and sets the corresponding the sheet name
         Dim ws As Worksheet
@@ -78,7 +78,7 @@ Public Class SolvObjective
         End With
     End Sub
 
-    [ Description ("Gets the Objective variable cell value.") ]
+    [Description("Gets the Objective variable cell value.")]
     Public Property Get CellRange() As Range
         Dim ws As Worksheet
         Set ws = oSolverSheet

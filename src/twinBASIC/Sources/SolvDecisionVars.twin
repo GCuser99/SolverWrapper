@@ -1,11 +1,11 @@
 [COMCreatable(False)]
-[ Description ("A class to define the Decision variable, i.e. the cells that are changed in order to satisfy the Objective.") ]
-[ PredeclaredId (False) ]
-[ Hidden (False) ]
+[Description("A class to define the Decision variable, i.e. the cells that are changed in order to satisfy the Objective.")]
+[PredeclaredId(False)]
+[Hidden(False)]
 Public Class SolvDecisionVars
 
     ' ==========================================================================
-    ' SolverWrapper v1.0
+    ' SolverWrapper v1.1
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -45,8 +45,8 @@ Public Class SolvDecisionVars
     ' Public members
     ' ==========================================================================
 
-    [ DefaultMember ]
-    [ Description ("Adds a cell(s) range that will be changed to achieve the desired result in the Objective cell - limited to 200 cells.") ]
+    [DefaultMember]
+    [Description("Adds a cell(s) range that will be changed to achieve the desired result in the Objective cell - limited to 200 cells.")]
     Public Sub Add(ParamArray cellRefs() As Variant)
         Dim rCellRef As Range
         'initialize rCellRef - there can be more than one call to Add so check to see if its been called before...
@@ -64,7 +64,7 @@ Public Class SolvDecisionVars
         ProcessDecisionVars rCellRef
     End Sub
 
-    [ Description ("Removes a cell or range of cells from the Decision variable set") ]
+    [Description("Removes a cell or range of cells from the Decision variable set")]
     Public Sub Remove(ParamArray cellRefs() As Variant)
         Dim oldRange As Range
         Dim deleteRange As Range
@@ -76,12 +76,12 @@ Public Class SolvDecisionVars
         oSolverSheet.Names("solver_adj").RefersTo = SubtractRangeFromRange(deleteRange, oldRange)
     End Sub
 
-    [ Description ("Removes all Decision variables.") ]
+    [Description("Removes all Decision variables.")]
     Public Sub RemoveAll()
         DeleteName "solver_adj", oSolverSheet
     End Sub
 
-    [ Description ("Initializes Decision Variables to user-specified values - can be a constant to assign to all, or a list of values to assign to each variable.") ]
+    [Description("Initializes Decision Variables to user-specified values - can be a constant to assign to all, or a list of values to assign to each variable.")]
     Public Sub Initialize(ParamArray cellVals() As Variant)
         Dim adjRange As Range, i As Long, cell As Range
         If NameExists("solver_adj", oSolverSheet) Then
@@ -97,12 +97,12 @@ Public Class SolvDecisionVars
         End If
     End Sub
 
-    [ Description ("Gets the total number of Decision variables.") ]
+    [Description("Gets the total number of Decision variables.")]
     Public Property Get Count() As Long
         If NameExists("solver_adj", oSolverSheet) Then Count = oSolverSheet.Names("solver_adj").RefersToRange().Count
     End Property
 
-    [ Description ("Gets the Decision variable cell range.") ]
+    [Description("Gets the Decision variable cell range.")]
     Public Function CellRange() As Range
         If NameExists("solver_adj", oSolverSheet) Then Set CellRange = oSolverSheet.Names("solver_adj").RefersToRange
     End Function

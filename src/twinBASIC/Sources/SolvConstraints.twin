@@ -1,11 +1,11 @@
 [COMCreatable(False)]
-[ Description ("A class to set/manage Solver constraints.") ]
-[ PredeclaredId (False) ]
-[ Hidden (False) ]
+[Description("A class to set/manage Solver constraints.")]
+[PredeclaredId(False)]
+[Hidden(False)]
 Public Class SolvConstraints
 
     ' ==========================================================================
-    ' SolverWrapper v1.0
+    ' SolverWrapper v1.1
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -50,7 +50,7 @@ Public Class SolvConstraints
     ' Public members
     ' ==========================================================================
 
-    [ Description ("Adds a constraint to the current problem.") ]
+    [Description("Adds a constraint to the current problem.")]
     Public Sub Add(ByVal cellRef As Variant, ByVal relation As SlvRelation, Optional ByVal formulaText As Variant)
         Dim ws As Worksheet
         Dim solver_num As Long
@@ -83,18 +83,18 @@ Public Class SolvConstraints
         End If
     End Sub
 
-    [ Description ("Adds a bounded constraint to the current problem. Equivalent to adding both cellRef>=lowBound and cellRef<=highBound") ]
+    [Description("Adds a bounded constraint to the current problem. Equivalent to adding both cellRef>=lowBound and cellRef<=highBound")]
     Public Sub AddBounded(ByVal cellRef As Variant, ByVal lowBound As Variant, ByVal highBound As Variant)
         Add cellRef, slvGreaterThanEqual, lowBound
         Add cellRef, slvLessThanEqual, highBound
     End Sub
 
-    [ Description ("Gets the total number of constraints set for the current problem.") ]
+    [Description("Gets the total number of constraints set for the current problem.")]
     Public Property Get Count() As Long
         If NameExists("solver_num", oSolverSheet) Then Count = NameToLong("solver_num", oSolverSheet)
     End Property
 
-    [ Description ("Deletes a constraint from the current problem.") ]
+    [Description("Deletes a constraint from the current problem.")]
     Public Sub Relax(ByVal cellRef As Variant, ByVal relation As SlvRelation, Optional ByVal formulaText As Variant)
         Dim ws As Worksheet
         Dim solver_num As Long
@@ -177,13 +177,13 @@ Public Class SolvConstraints
         End If
     End Sub
 
-    [ Description ("Deletes a bounded constraint from the current problem.") ]
+    [Description("Deletes a bounded constraint from the current problem.")]
     Public Sub RelaxBounded(ByVal cellRef As Variant, ByVal lowBound As Variant, ByVal highBound As Variant)
         Relax cellRef, slvGreaterThanEqual, lowBound
         Relax cellRef, slvLessThanEqual, highBound
     End Sub
 
-    [ Description ("Deletes all constraints from the current problem.") ]
+    [Description("Deletes all constraints from the current problem.")]
     Public Sub RelaxAll()
         Dim i As Long
         Dim ws As Worksheet
@@ -196,7 +196,7 @@ Public Class SolvConstraints
         ws.Names("solver_num").Value = 0
     End Sub
 
-    [ Description ("Changes a constraint of the current problem. If cellRef AND relation do not match an existing constraint, then use Relax and Add instead.") ]
+    [Description("Changes a constraint of the current problem. If cellRef AND relation do not match an existing constraint, then use Relax and Add instead.")]
     Public Sub Change(ByVal cellRef As Variant, ByVal relation As SlvRelation, ByVal newFormulaText As Variant)
         Dim ws As Worksheet
         Dim solver_num As Long
@@ -235,13 +235,13 @@ Public Class SolvConstraints
         End If
     End Sub
 
-    [ Description ("Changes a bounded constraint of the current problem.") ]
+    [Description("Changes a bounded constraint of the current problem.")]
     Public Sub ChangeBounded(ByVal cellRef As Variant, ByVal newLowBound As Variant, ByVal newHighBound As Variant)
         Change cellRef, slvGreaterThanEqual, newLowBound
         Change cellRef, slvLessThanEqual, newHighBound
     End Sub
 
-    [ Description ("Returns True if all model Constraints are satisfied.") ]
+    [Description("Returns True if all model Constraints are satisfied.")]
     Public Function AreSatisfied() As Boolean
         AreSatisfied = AreConstraintsSatisfied(oSolverSheet)
     End Function

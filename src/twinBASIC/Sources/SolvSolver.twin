@@ -1,11 +1,11 @@
 [COMCreatable(False)]
-[ Description ("A class to manage Solver Engine and Options.") ]
-[ PredeclaredId (False) ]
-[ Hidden (False) ]
+[Description("A class to manage Solver Engine and Options.")]
+[PredeclaredId(False)]
+[Hidden(False)]
 Public Class SolvSolver
 
     ' ==========================================================================
-    ' SolverWrapper v1.0
+    ' SolverWrapper v1.1
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -61,19 +61,19 @@ Public Class SolvSolver
     ' Public members
     ' ==========================================================================
 
-    [ Description ("Exposes the Solver Options object.") ]
+    [Description("Exposes the Solver Options object.")]
     Public Function Options() As SolvOptions
         Set Options = oSolvOptions
         oSolvOptions.SetSolverSheet oSolverSheet
     End Function
 
-    [ Description ("Resets all Option values to defaults.") ]
+    [Description("Resets all Option values to defaults.")]
     Public Sub Reset()
         DeleteSolverNames oSolverSheet, False, True
         InitSolver oSolverSheet, False, True
     End Sub
 
-    [ Description ("Sets/Gets the solver method (engine) to use to solve the problem.") ]
+    [Description("Sets/Gets the solver method (engine) to use to solve the problem.")]
     Public Property Let Method(val As SlvSolveMethod)
         oSolverSheet.Names.Add Name:="solver_eng", RefersToLocal:=val, Visible:=nameVisible
     End Property
@@ -82,7 +82,7 @@ Public Class SolvSolver
         Method = NameToLong("solver_eng")
     End Property
 
-    [ Description ("Sets whether all intermediate solutions attempted should be saved - see GetAllSolutions to return solution array.") ]
+    [Description("Sets whether all intermediate solutions attempted should be saved - see GetAllSolutions to return solution array.")]
     Public Property Let SaveAllTrialSolutions(val As Boolean)
         saveSolutions = val
     End Property
@@ -90,7 +90,7 @@ Public Class SolvSolver
         SaveAllTrialSolutions = saveSolutions
     End Property
 
-    [ Description ("Enables the ShowTrial, BeforeSolve, AfterSolve events of the SolvProblem class (default = False).") ]
+    [Description("Enables the ShowTrial, BeforeSolve, AfterSolve events of the SolvProblem class (default = False).")]
     Public Property Let EnableEvents(val As Boolean)
         enableSolverEvents = val
     End Property
@@ -98,7 +98,7 @@ Public Class SolvSolver
         EnableEvents = enableSolverEvents
     End Property
 
-    [ Description ("Sets the name of the user-defined callback function that will be called on each trial solution. If this is used in conjunction with th ShowTrial event, then the return value from the callback function takes precedence over the return value from the event.") ]
+    [Description("Sets the name of the user-defined callback function that will be called on each trial solution. If this is used in conjunction with th ShowTrial event, then the return value from the callback function takes precedence over the return value from the event.")]
     Public Property Let UserCallbackMacroName(ByVal val As String)
         If InStr(val, "!") Then
             userDefinedCallback = val
@@ -110,7 +110,7 @@ Public Class SolvSolver
         UserCallbackMacroName = userDefinedCallback 'End Property
     End Property
 
-    [ Description ("Returns the string message associated with the Solver code returned by SolveIt method.") ]
+    [Description("Returns the string message associated with the Solver code returned by SolveIt method.")]
     Public Function MsgCodeToString(ByVal code As Long) As String
         MsgCodeToString = ReturnSolverMsg(code)
     End Function

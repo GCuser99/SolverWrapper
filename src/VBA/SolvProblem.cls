@@ -12,7 +12,7 @@ Attribute VB_Description = "The main class to define the Solver problem, includi
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v1.0
+' SolverWrapper v1.1
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -189,11 +189,11 @@ Attribute Objective.VB_Description = "Exposes the Objective object."
 End Property
 
 '@Description("Exposes the Solver object.")
-Public Function Solver() As SolvSolver
+Public Property Get Solver() As SolvSolver
 Attribute Solver.VB_Description = "Exposes the Solver object."
     If Not IsInitialized Then Err.Raise vbObjectError + 4001, , "Must call Initialize method first"
     Set Solver = oSolver
-End Function
+End Property
 
 '@Description("Initializes the problem - this must be called before all other methods.")
 Public Sub Initialize(SolverSheet As Worksheet, Optional ByVal resetSolver As Boolean = True)
