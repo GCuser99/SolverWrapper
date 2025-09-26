@@ -12,7 +12,7 @@ Attribute VB_Description = "The main class to define the Solver problem, includi
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v1.1
+' SolverWrapper v1.2
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -24,7 +24,7 @@ Attribute VB_Description = "The main class to define the Solver problem, includi
 ' ==========================================================================
 ' MIT License
 '
-' Copyright (c) 2024, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy
 ' of this software and associated documentation files (the "Software"), to deal
@@ -266,7 +266,7 @@ End Function
 Public Sub SaveSolutionsToRange(ByRef saveRange As Range, Optional ByVal sortBestToWorst As Boolean = True, Optional ByVal removeDuplicates As Boolean = True, Optional ByVal keepOnlyValid As Boolean = True)
 Attribute SaveSolutionsToRange.VB_Description = "Saves all intermediate and final solutions to the given Worksheet Range."
     If Not oSolver.SaveAllTrialSolutions Then Err.Raise vbObjectError + 4001, , "Error in SaveSolutionsToRange method  - Must first set SaveAllTrialSolutions of Solver Class to True"
-    VariantToRange SaveSolutionsToArray(sortBestToWorst, removeDuplicates, keepOnlyValid), saveRange
+    VariantArrayToRange SaveSolutionsToArray(sortBestToWorst, removeDuplicates, keepOnlyValid), saveRange
 End Sub
 
 '@Description("Returns a reference to the current problem Worksheet")

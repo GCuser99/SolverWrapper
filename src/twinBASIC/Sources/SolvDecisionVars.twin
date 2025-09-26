@@ -2,10 +2,11 @@
 [Description("A class to define the Decision variable, i.e. the cells that are changed in order to satisfy the Objective.")]
 [PredeclaredId(False)]
 [Hidden(False)]
+[InterfaceId("71A00FE4-A1D4-47C3-BC7A-07996222D20E")]
 Public Class SolvDecisionVars
 
     ' ==========================================================================
-    ' SolverWrapper v1.1
+    ' SolverWrapper v1.2
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -17,7 +18,7 @@ Public Class SolvDecisionVars
     ' ==========================================================================
     ' MIT License
     '
-    ' Copyright (c) 2024, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+    ' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
     '
     ' Permission is hereby granted, free of charge, to any person obtaining a copy
     ' of this software and associated documentation files (the "Software"), to deal

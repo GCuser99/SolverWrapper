@@ -12,7 +12,7 @@ Attribute VB_Description = "A class to set/manage Solver constraints."
 '@Exposed
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v1.1
+' SolverWrapper v1.2
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -24,7 +24,7 @@ Attribute VB_Description = "A class to set/manage Solver constraints."
 ' ==========================================================================
 ' MIT License
 '
-' Copyright (c) 2024, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy
 ' of this software and associated documentation files (the "Software"), to deal
@@ -285,7 +285,7 @@ Private Sub ProcessConstraintParams(ByRef cellRef As Variant, ByVal relation As 
     
     If relation > 3 Then
         'LHS MUST refer to the decision variables
-        'and thus dose not count against the 100-cell constraint limit
+        'and thus does not count against the 100-cell constraint limit
         If Not NameExists("solver_adj", ws) Then
             Err.Raise vbObjectError + 4001, , "Cannot set constraint relations slvInt, slvBin, or slvAllDif, until after the decision variables are defined."
         End If

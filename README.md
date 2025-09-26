@@ -89,8 +89,7 @@ The SolverWrapper's ActiveX DLL Object Model in VBA's Object Browser:
 
 [twinBASIC](https://twinbasic.com/preview.html) by Wayne Phillips
 
-[Inno Setup](https://jrsoftware.org/isinfo.php) by Jordan Russell and [UninsIS](https://github.com/Bill-Stewart/UninsIS) by Bill Stewart
-
+[Inno Setup](https://jrsoftware.org/isinfo.php) by Jordan Russell
 
  
 

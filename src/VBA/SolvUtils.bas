@@ -1,7 +1,7 @@
 Attribute VB_Name = "SolvUtils"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v1.1
+' SolverWrapper v1.2
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -13,7 +13,7 @@ Attribute VB_Name = "SolvUtils"
 ' ==========================================================================
 ' MIT License
 '
-' Copyright (c) 2024, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy
 ' of this software and associated documentation files (the "Software"), to deal
@@ -349,7 +349,7 @@ Public Function TransposeArray(myArray() As Variant) As Variant()
     TransposeArray = tempArray
 End Function
 
-Public Sub VariantToRange(a() As Variant, r As Range, Optional ByVal OutputColumn As Boolean = True)
+Public Sub VariantArrayToRange(a() As Variant, r As Range, Optional ByVal OutputColumn As Boolean = True)
     Dim temp() As Variant, i As Long, numRows As Long, numcols As Long
     If Is1DVariant(a) Then
         If OutputColumn Then
@@ -424,54 +424,32 @@ Public Function RoundNum(ByVal number As Double, Optional ByVal numDigitsAfterDe
     End If
 End Function
 
-Public Function ReturnSolverMsg(ByVal solverResult As Long) As String
-    Select Case solverResult
-        Case 0
-            ReturnSolverMsg = "Solver found a solution. All constraints and optimality conditions are satisfied (0)."
-        Case 1
-            ReturnSolverMsg = "Solver has converged to the current solution. All constraints are satisfied (1)."
-        Case 2
-            ReturnSolverMsg = "Solver cannot improve the current solution. All constraints are satisfied (2)."
-        Case 3
-            ReturnSolverMsg = "Stop chosen when the maximum iteration limit was reached (3)."
-        Case 4
-            ReturnSolverMsg = "The Objective Cell values do not converge (4)."
-        Case 5
-            ReturnSolverMsg = "Solver could not find a feasible solution (5)."
-        Case 6
-            ReturnSolverMsg = "Solver stopped at user's request (6)."
-        Case 7
-            ReturnSolverMsg = "The linearity conditions required by this LP Solver are not satisfied (7)."
-        Case 8
-            ReturnSolverMsg = "The problem is too large for Solver to handle - limited to 200 Decision cells and 100 non-Decision cell constraints (8)."
-        Case 9
-            ReturnSolverMsg = "Solver encountered an error value in the objective cell or a constraint cell (9)."
-        Case 10
-            ReturnSolverMsg = "Stop chosen when the maximum time limit was reached (10)."
-        Case 11
-            ReturnSolverMsg = "There is not enough memory available to solve the problem (11)."
-        Case 12
-            ReturnSolverMsg = "Message 12 - no documentation"
-        Case 13
-            ReturnSolverMsg = "Error in model. Please verify that all cells and constraints are valid (13)."
-        Case 14
-            ReturnSolverMsg = "Solver found an integer solution within tolerance. All constraints are satisfied (14)."
-        Case 15
-            ReturnSolverMsg = "Stop chosen when the maximum number of [integer or feasible] solutions was reached (15)."
-        Case 16
-            ReturnSolverMsg = "Stop chosen when the maximum number of [integer] subproblems was reached (16)."
-        Case 17
-            ReturnSolverMsg = "Solver converged in probability to a global solution (17)."
-        Case 18
-            ReturnSolverMsg = "All variables must have both upper and lower bounds (18)."
-        Case 19
-            ReturnSolverMsg = "Variable bounds conflict in binary or alldifferent constraint (19)."
-        Case 20
-            ReturnSolverMsg = "Lower and upper bounds on variables allow no feasible solution (20)."
-        Case Else
-            ReturnSolverMsg = "Solver encountered an unknown error."
-    End Select
-End Function
+    Public Function ReturnSolverMsg(ByVal solverResult As Long) As String
+        Select Case solverResult
+            Case 0: ReturnSolverMsg = "Solver found a solution. All constraints and optimality conditions are satisfied (0)."
+            Case 1: ReturnSolverMsg = "Solver has converged to the current solution. All constraints are satisfied (1)."
+            Case 2: ReturnSolverMsg = "Solver cannot improve the current solution. All constraints are satisfied (2)."
+            Case 3: ReturnSolverMsg = "Stop chosen when the maximum iteration limit was reached (3)."
+            Case 4: ReturnSolverMsg = "The Objective Cell values do not converge (4)."
+            Case 5: ReturnSolverMsg = "Solver could not find a feasible solution (5)."
+            Case 6: ReturnSolverMsg = "Solver stopped at user's request (6)."
+            Case 7: ReturnSolverMsg = "The linearity conditions required by this LP Solver are not satisfied (7)."
+            Case 8: ReturnSolverMsg = "The problem is too large for Solver to handle - limited to 200 Decision cells and 100 non-Decision cell constraints (8)."
+            Case 9: ReturnSolverMsg = "Solver encountered an error value in the objective cell or a constraint cell (9)."
+            Case 10: ReturnSolverMsg = "Stop chosen when the maximum time limit was reached (10)."
+            Case 11: ReturnSolverMsg = "There is not enough memory available to solve the problem (11)."
+            Case 12: ReturnSolverMsg = "Message 12 - no documentation"
+            Case 13: ReturnSolverMsg = "Error in model. Please verify that all cells and constraints are valid (13)."
+            Case 14: ReturnSolverMsg = "Solver found an integer solution within tolerance. All constraints are satisfied (14)."
+            Case 15: ReturnSolverMsg = "Stop chosen when the maximum number of [integer or feasible] solutions was reached (15)."
+            Case 16: ReturnSolverMsg = "Stop chosen when the maximum number of [integer] subproblems was reached (16)."
+            Case 17: ReturnSolverMsg = "Solver converged in probability to a global solution (17)."
+            Case 18: ReturnSolverMsg = "All variables must have both upper and lower bounds (18)."
+            Case 19: ReturnSolverMsg = "Variable bounds conflict in binary or alldifferent constraint (19)."
+            Case 20: ReturnSolverMsg = "Lower and upper bounds on variables allow no feasible solution (20)."
+            Case Else: ReturnSolverMsg = "Solver encountered an unknown error."
+        End Select
+    End Function
 
 Public Function AreConstraintsSatisfied(ByRef ws As Worksheet) As Boolean
     Dim solver_num As Long

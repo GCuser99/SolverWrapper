@@ -3,7 +3,7 @@ Attribute VB_Description = "This class is used for object instantiation when ref
 '@ModuleDescription "This class is used for object instantiation when referencing SolverWrapper externally from another VBA project"
 '@folder("SolverWrapper.Source")
 ' ==========================================================================
-' SolverWrapper v1.1
+' SolverWrapper v1.2
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -15,7 +15,7 @@ Attribute VB_Description = "This class is used for object instantiation when ref
 ' ==========================================================================
 ' MIT License
 '
-' Copyright (c) 2024, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy
 ' of this software and associated documentation files (the "Software"), to deal

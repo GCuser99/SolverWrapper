@@ -2,10 +2,12 @@
 [Description("Instantiates a SolvProblem object")]
 [Hidden(False)]
 [PredeclaredId(True)]
+[ClassId("71A00FE4-A1D4-47C3-BC7A-AC2C9D29D012")]
+[InterfaceId("71A00FE4-A1D4-47C3-BC7A-EC945A707B9F")]
 Public Class ClassFactory
 
     ' ==========================================================================
-    ' SolverWrapper v1.1
+    ' SolverWrapper v1.2
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -17,7 +19,7 @@ Public Class ClassFactory
     ' ==========================================================================
     ' MIT License
     '
-    ' Copyright (c) 2024, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+    ' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
     '
     ' Permission is hereby granted, free of charge, to any person obtaining a copy
     ' of this software and associated documentation files (the "Software"), to deal
