@@ -7,7 +7,7 @@
 
 The SOLVER Add-in from [FrontLine Systems](https://www.solver.com/) that comes installed with Microsoft Excel is a powerful tool for linear and non-linear spreadsheet model optimization. However, automating the Solver via VBA can be awkward due to Solver's cryptic "functional" design, and the requirement that the Add-in must be installed (activated) before a VBA reference can be made to it - see Peltier Tech for [details](https://peltiertech.com/Excel/SolverVBA.html).
 
-This repo offers a means of automating Solver via VBA by means of an ActiveX DLL referenced from within your VBA projects. The DLL, compiled in [twinBASIC](https://twinbasic.com/preview.html), can either be [installed/registered](https://github.com/GCuser99/SolverWrapper/tree/main/dist), or be called without registration if the use of IntelliSense and the Object Browser are not important. 
+This repo offers a solution to automating Solver via VBA by means of an ActiveX DLL referenced from within your VBA projects. The DLL, compiled in [twinBASIC](https://twinbasic.com/preview.html), can either be [installed/registered](https://github.com/GCuser99/SolverWrapper/tree/main/dist), or be called without registration if the use of IntelliSense and the Object Browser are not important. 
 
 This unique solution controls Solver by communicating directly with the SOLVER32.DLL, thus circumventing the SOLVER Add-in, and eliminating having to ensure that the Add-in has been loaded into Excel. Another advantage is that we can rewrite the user-DLL interface to add improvements such as a more flexible and easier to understand Object Model, an enhanced Solver callback protocol, and an event-model for monitoring optimization progress.
 
