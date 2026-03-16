@@ -7,4 +7,4 @@ Application.LibraryPath & "\..\SAMPLES\SOLVSAMP.XLS"
 C:\Program Files\Microsoft Office\root\Office16\SAMPLES\SOLVSAMP.XLS
 ```
 
-Import these test modules into the sample workbook above, load the [vba source](https://github.com/GCuser99/SolverWrapper/tree/main/src/vba) or set a reference to the [SolverWrapper DLL]( https://github.com/GCuser99/SolverWrapper/tree/main/dist) and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
+Import these test modules into the sample workbook above, set a reference to the [SolverWrapper DLL]( https://github.com/GCuser99/SolverWrapper/tree/main/dist) and then save SOLVSAMP.XLS to SOLVSAMP.XLSM.
