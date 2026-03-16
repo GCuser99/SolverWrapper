@@ -6,7 +6,7 @@
 Public Class SolvDecisionVars
 
     ' ==========================================================================
-    ' SolverWrapper v1.2
+    ' SolverWrapper
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -18,7 +18,7 @@ Public Class SolvDecisionVars
     ' ==========================================================================
     ' MIT License
     '
-    ' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+    ' Copyright (c) 2024-2026, GCUser99 (https://github.com/GCuser99/SolverWrapper)
     '
     ' Permission is hereby granted, free of charge, to any person obtaining a copy
     ' of this software and associated documentation files (the "Software"), to deal

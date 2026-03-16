@@ -6,7 +6,7 @@
 Public Class SolvSolver
 
     ' ==========================================================================
-    ' SolverWrapper v1.2
+    ' SolverWrapper
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -18,7 +18,7 @@ Public Class SolvSolver
     ' ==========================================================================
     ' MIT License
     '
-    ' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+    ' Copyright (c) 2024-2026, GCUser99 (https://github.com/GCuser99/SolverWrapper)
     '
     ' Permission is hereby granted, free of charge, to any person obtaining a copy
     ' of this software and associated documentation files (the "Software"), to deal
@@ -80,10 +80,10 @@ Public Class SolvSolver
     End Property
     Public Property Get Method() As SlvSolveMethod
         On Error Resume Next
-        Method = NameToLong("solver_eng")
+        Method = NameToLong("solver_eng", oSolverSheet)
     End Property
 
-    [Description("Sets whether all intermediate solutions attempted should be saved - see GetAllSolutions to return solution array.")]
+    [Description("Sets whether all intermediate solutions attempted should be saved Sets whether all intermediate solutions attempted should be saved - see SaveSolutionsToRange and SaveSolutionsToArray of the SolvProblem class to access these solutions.")]
     Public Property Let SaveAllTrialSolutions(val As Boolean)
         saveSolutions = val
     End Property

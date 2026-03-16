@@ -1,9 +1,6 @@
-Attribute VB_Name = "ClassFactory"
-Attribute VB_Description = "This class is used for object instantiation when referencing SolverWrapper externally from another VBA project"
-'@ModuleDescription "This class is used for object instantiation when referencing SolverWrapper externally from another VBA project"
-'@folder("SolverWrapper.Source")
+Public Module DLLExports
 ' ==========================================================================
-' SolverWrapper v1.2
+' SolverWrapper
 '
 ' A wrapper for automating MS Excel's Solver Add-in
 '
@@ -15,7 +12,7 @@ Attribute VB_Description = "This class is used for object instantiation when ref
 ' ==========================================================================
 ' MIT License
 '
-' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+' Copyright (c) 2024-2026, GCUser99 (https://github.com/GCuser99/SolverWrapper)
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy
 ' of this software and associated documentation files (the "Software"), to deal
@@ -35,16 +32,15 @@ Attribute VB_Description = "This class is used for object instantiation when ref
 ' OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 ' SOFTWARE.
 ' ==========================================================================
-
-' From the referencing vba project use the following syntax:
+'these are for use if calling the DLL without registration
+'use following format to declare and use in VBA:
 '
-' Dim problem as SolverWrapper.SolvProblem
-' Set problem = SolverWrapper.New_SolvProblem
-'
-Option Explicit
+'Public Declare PtrSafe Function New_SolvProblem Lib "[path to dll folder]\SolverWrapper_win64.dll" () As Object
+'Dim driver As Object  
+'Set driver = New_SolvProblem()
 
-'@Description("Instantiates a SolvProblem object")
-Public Function New_SolvProblem() As SolvProblem
-Attribute New_SolvProblem.VB_Description = "Instantiates a SolvProblem object"
-    Set New_SolvProblem = New SolvProblem
-End Function
+    [DllExport()]
+    Public Function New_SolvProblem() As Object
+         Set New_SolvProblem = New SolvProblem
+    End Function
+End Module

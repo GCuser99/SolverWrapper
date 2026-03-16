@@ -2,9 +2,10 @@
 // of their choice (DisableDirPage=no). If the user had already
 // installed an older (or even same or newer) version compared to the one
 // user is currently installing, and then decides to change the
-// install location, this installer (with help from UninsIS) will first
-// uninstall the previously installed version from the old location,
-// so that there is only one version on the system at any one point in time. 
+// install location, this installer will first uninstall the
+// previously installed version from the old location, so that there
+// is only one version on the system at any one point in time.
+
 #define AppName "SolverWrapper"
 #define AppGUID "{71A00FE4-A1D4-47C3-BC7A-AE4787BD6ABB}"
 #define AppPublisher "GCUser99"
@@ -13,12 +14,12 @@
 #define InstallerName "SolverWrapperDLLSetup"
 #define DLL64FilePath "..\Build\SolverWrapper_win64.dll"
 #define DLL32FilePath "..\Build\SolverWrapper_win32.dll"
-#define LicenseFilePath "..\..\..\LICENSE.txt"
-#define TestFolderPath "..\..\..\test"
-#define UtilitiesPath "..\..\Utilities"
-#define LogoFilePath ".\logo_setup.bmp"
+#define LicenseFilePath "..\LICENSE.txt"
+#define TestFolderPath "..\Tests"
+#define UtilitiesPath "..\Utilities"
+; #define LogoFilePath ".\logo_setup.bmp"
 #define RequirementsFilePath ".\readme.rtf"
-#define SetupOutputFolderPath "..\..\..\dist" 
+#define SetupOutputFolderPath "..\Add-in Installer" 
 #define AppVersion GetVersionNumbersString(DLL64FilePath)
 
 [Setup]
@@ -100,7 +101,7 @@ Name: "{autodesktop}\SolverWrapper - Shortcut"; Filename: "{app}"
 Name: "{app}\wiki help documentation"; Filename: "{#AppHelpURL}"
 
 [Registry]
-;Add excel and access trusted location for examples
+;Add excel trusted location for examples
 Root: HKCU; Subkey: "Software\Microsoft\Office\{code:GetOfficeVersion|Excel}.0\Excel\Security\Trusted Locations\{#AppName}"; ValueName: "Path"; ValueType: String; ValueData: "{app}\examples";  Flags: uninsdeletekey; Check: HasExcel;
 
 [Code]

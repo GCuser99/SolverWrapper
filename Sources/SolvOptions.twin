@@ -6,7 +6,7 @@
 Public Class SolvOptions
 
     ' ==========================================================================
-    ' SolverWrapper v1.2
+    ' SolverWrapper
     '
     ' A wrapper for automating MS Excel's Solver Add-in
     '
@@ -18,7 +18,7 @@ Public Class SolvOptions
     ' ==========================================================================
     ' MIT License
     '
-    ' Copyright (c) 2024-2025, GCUser99 (https://github.com/GCuser99/SolverWrapper)
+    ' Copyright (c) 2024-2026, GCUser99 (https://github.com/GCuser99/SolverWrapper)
     '
     ' Permission is hereby granted, free of charge, to any person obtaining a copy
     ' of this software and associated documentation files (the "Software"), to deal
@@ -70,7 +70,7 @@ Public Class SolvOptions
     [Description("The maximum number of iterations Solver will use in solving the problem. The value must be a positive integer.")]
     Public Property Let MaxIterations(ByVal val As Long)
         With oSolverSheet.Names
-            If MaxIterations <> 0 Then
+            If val <> 0 Then
                 .Add Name:="solver_itr", RefersTo:=CDbl(val), Visible:=nameVisible
             Else
                 .Add Name:="solver_itr", RefersTo:=MAXVALUE, Visible:=nameVisible
@@ -130,7 +130,7 @@ Public Class SolvOptions
         Derivatives = NameToLong("solver_drv", oSolverSheet)
     End Property
 
-    '[escription("Use the Search options to specify the search algorithm that will be used at each iteration to decide which direction to search in: 1 represents the Newton search method, and 2 represents the conjugate search method. Newton, which uses a quasi-Newton method, is the default search method.")]
+    [Description("Use the Search options to specify the search algorithm that will be used at each iteration to decide which direction to search in: 1 represents the Newton search method, and 2 represents the conjugate search method. Newton, which uses a quasi-Newton method, is the default search method.")]
     Public Property Let SearchOption(ByVal val As SlvSearchOption)
          With oSolverSheet.Names
             .Add Name:="solver_nwt", RefersToLocal:=val, Visible:=nameVisible
@@ -149,7 +149,7 @@ Public Class SolvOptions
     End Property
     Public Property Get IntTolerance() As Double
         On Error Resume Next
-        IntTolerance = NameToDbl("solver_tol", oSolverSheet)
+        IntTolerance = 100 * NameToDbl("solver_tol", oSolverSheet)
     End Property
 
     [Description("If the objective or constraints differ by several orders of magnitude - for example, maximizing percentage of profit based on million-dollar investments - set this option True to have Solver internally rescale the objective and constraint values to similar orders of magnitude during computation. If this option is False, Solver will perform its computations with the original values of the objective and constraints. The default value is True.")]
@@ -213,7 +213,7 @@ Public Class SolvOptions
     End Property
     Public Property Get RandomSeed() As Long
         On Error Resume Next
-        PopulationSize = NameToLong("solver_rsd", oSolverSheet)
+        RandomSeed = NameToLong("solver_rsd", oSolverSheet)
     End Property
 
     [Description("True to have Solver use multistart method for global optimization with the GRG Nonlinear Solving method, when SolverSolve is called.  False to have Solver run the GRG Solving method only once, without multistart, when SolverSolve is called.")]
@@ -228,7 +228,7 @@ Public Class SolvOptions
     End Property
     Public Property Get MultiStart() As Boolean
         On Error Resume Next
-        PopulationSize = (NameToLong("solver_msl", oSolverSheet) = 1)
+        MultiStart = (NameToLong("solver_msl", oSolverSheet) = 1)
     End Property
 
     [Description("True to cause the Evolutionary Solving method and the multistart method to return immediately from a call to SolveIt with a value of 18 if any of the variables do not have both lower and upper bounds defined.  False to have these methods attempt to solve the problem without bounds on all of the variables.")]
