@@ -1,5 +1,5 @@
 # SolverWrapper
-[twinBASIC](https://twinbasic.com/preview.html) ActiveX DLL for automating MS Excel's Solver
+A [twinBASIC](https://twinbasic.com/preview.html) ActiveX DLL for automating MS Excel's Solver
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
