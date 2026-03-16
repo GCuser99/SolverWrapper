@@ -16,8 +16,8 @@ This unique solution controls Solver by communicating directly with the SOLVER32
 - OOP design, making it easier to understand and code with
 - Unique implementation that communicates directly with SOLVER32.DLL, bypassing SOLVER Add-in
 - Capability to save intermediate trial solutions, as opposed to just one BEST solution (often more than one exists!)
-- Enhanced Solver [callback protocol](https://github.com/GCuser99/SolverWrapper/wiki#using-the-enhanced-callback)
-- Alternative [event-based model](https://github.com/GCuser99/SolverWrapper/wiki#using-solverwrapper-events) for monitoring solution progress versus using the callback
+- Enhanced Solver [callback protocol](https://github.com/GCuser99/SolverWrapper/wiki/Using-the-Enhanced-Callback)
+- Alternative [event-based model](https://github.com/GCuser99/SolverWrapper/wiki/using-solverwrapper-events) for monitoring solution progress versus using the callback
 - Other miscellaneous enhancements
 - Help documentation is available in the [SolverWrapper Wiki](https://github.com/GCuser99/SolverWrapper/wiki)
 
