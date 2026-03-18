@@ -16,10 +16,10 @@
 #define DLL32FilePath "..\Build\SolverWrapper_win32.dll"
 #define LicenseFilePath "..\LICENSE.txt"
 #define TestFolderPath "..\Tests"
-#define UtilitiesPath "..\Utilities"
+#define UtilitiesPath "..\Scripts"
 ; #define LogoFilePath ".\logo_setup.bmp"
 #define RequirementsFilePath ".\readme.rtf"
-#define SetupOutputFolderPath "..\Add-in Installer" 
+#define SetupOutputFolderPath "..\Installer" 
 #define AppVersion GetVersionNumbersString(DLL64FilePath)
 
 [Setup]
